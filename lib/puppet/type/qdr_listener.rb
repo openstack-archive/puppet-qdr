@@ -24,8 +24,8 @@ Puppet::Type.newtype(:qdr_listener) do
   end
 
   newproperty(:auth_peer) do
-    defaultto :no
-    newvalues(:yes, :no)
+    defaultto :false
+    newvalues(:true, :false)
 
     def should_to_s(value)
       value.inspect

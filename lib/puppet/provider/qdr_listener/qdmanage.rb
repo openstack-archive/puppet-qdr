@@ -29,7 +29,7 @@ Puppet::Type.type(:qdr_listener).provide(:qdmanage) do
     listener_properties[:addr]      = listener["addr"]
     listener_properties[:port]      = listener["port"]
     listener_properties[:role]      = listener["role"].to_s
-    listener_properties[:auth_peer] = listener["auth_peer"].to_s
+    listener_properties[:auth_peer] = listener["authenticatePeer"].to_s
     
     listener_properties
   end   
@@ -42,7 +42,7 @@ Puppet::Type.type(:qdr_listener).provide(:qdmanage) do
                         :addr   => listener["addr"],
                         :port   => listener["port"],
                         :role   => listener["role"].to_s,
-                        :auth_peer => listener["auth_peer"].to_s)
+                        :auth_peer => listener["authenticatePeer"].to_s)
     end
     listeners                                  
   end
@@ -82,7 +82,8 @@ Puppet::Type.type(:qdr_listener).provide(:qdmanage) do
                resource[:name],
                'addr='+resource[:addr],
                'port='+resource[:port],
-               'role='+resource[:role].to_s)
+               'role='+resource[:role].to_s,
+               'authenticatePeer='+resource[:auth_peer].to_s)
     rescue Puppet::ExecutionFailure => e
       return
     end
