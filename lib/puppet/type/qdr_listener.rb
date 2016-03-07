@@ -3,8 +3,8 @@ Puppet::Type.newtype(:qdr_listener) do
 
   ensurable 
   
-  # this autorequire should not be hard coded
-#  autorequire(:service) { 'qdrouterd' }
+  # TODO(ansmith) - dynamic autorequire for qdrouterd service
+  #  autorequire(:service) { 'qdrouterd' }
   newparam(:name, :namevar => true) do
     desc "The unique name for the listener"
   end
