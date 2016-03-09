@@ -14,7 +14,7 @@ Puppet::Type.newtype(:qdr_listener) do
   end
 
   newproperty(:port) do
-    desc "The listeing port number on the host"
+    desc "The listening port number on the host"
   end
 
   newproperty(:role) do
