@@ -30,6 +30,9 @@ Puppet::Type.type(:qdr_listener).provide(:qdmanage) do
     listener_properties[:port]      = listener["port"]
     listener_properties[:role]      = listener["role"].to_s
     listener_properties[:auth_peer] = listener["authenticatePeer"].to_s
+    listener_properties[:require_encryption] = listener["requireEncryption"].to_s    
+    listener_properties[:require_ssl] = listener["requireSsl"].to_s
+    listener_properties[:max_frame_size] = listener["maxFrameSize"].to_s
     
     listener_properties
   end   
@@ -42,7 +45,10 @@ Puppet::Type.type(:qdr_listener).provide(:qdmanage) do
                         :addr   => listener["addr"],
                         :port   => listener["port"],
                         :role   => listener["role"].to_s,
-                        :auth_peer => listener["authenticatePeer"].to_s)
+                        :auth_peer => listener["authenticatePeer"].to_s,
+                        :require_encryption => listener["requireEncryption"].to_s,
+                        :require_ssl => listener["requireSsl"].to_s,
+                        :max_frame_size => listener["maxFrameSize"].to_s)
     end
     listeners                                  
   end
@@ -83,7 +89,10 @@ Puppet::Type.type(:qdr_listener).provide(:qdmanage) do
                'addr='+resource[:addr],
                'port='+resource[:port],
                'role='+resource[:role].to_s,
-               'authenticatePeer='+resource[:auth_peer].to_s)
+               'authenticatePeer='+resource[:auth_peer].to_s,
+               'requireEncryption='+resource[:require_encryption].to_s,              
+               'requireSsl='+resource[:require_ssl].to_s,
+               'maxFrameSize='+resource[:max_frame_size].to_s)
     rescue Puppet::ExecutionFailure => e
       return
     end

@@ -37,4 +37,47 @@ Puppet::Type.newtype(:qdr_listener) do
     
   end
 
+  newproperty(:require_encryption) do
+    desc "Require the connection to the peer to be encryped"
+    defaultto :false
+    newvalues(:true, :false)
+
+    def should_to_s(value)
+      value.inspect
+    end
+
+    def is_to_s(value)
+      value.inspect
+    end
+    
+  end
+  
+  newproperty(:require_ssl) do
+    desc "Require the use of SSL or TLS on the connection"
+    defaultto :false
+    newvalues(:true, :false)
+
+    def should_to_s(value)
+      value.inspect
+    end
+
+    def is_to_s(value)
+      value.inspect
+    end
+    
+  end
+
+  newproperty(:max_frame_size) do
+    desc "The largest contiguous set of uninterrupted data that can be sent"
+    defaultto ('65536')
+
+    validate do |value|
+      unless value =~ /\d{1,5}/ &&
+             value.to_i <= 65536
+        fail("Invalid max frame size #{value}")
+      end
+    end
+  end
+
+  
 end
