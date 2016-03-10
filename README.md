@@ -15,19 +15,23 @@
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+This module manages the QPID Dispatch Router (qdr) found at:
+
+     http://qpid.apache.org/components/dispatch-router/
+
+The dispatch router provides flexible and scalable interconnect between any AMQP 1.0 endpoints, whether they be clients, brokers or other AMQP-enabled services
+
+Support is intended for Red Hat and Ubuntu OS family deployed with Pupppet V4.x
 
 ## Module Description
 
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
+This module sets up the installations, configuration and management of the QPID Dispatch
+Router (qdr) class and has a number of providers that correpsond the router configuration
+entities such as listeners and connectors.
 
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
+This module will facilitate the deployment of a full/partial mesh topology of QPID Dispatch
+Routers serving as the messaging interconnect for a site.
+
 
 ## Setup
 
