@@ -7,6 +7,7 @@ Puppet::Type.newtype(:qdr_listener) do
   #  autorequire(:service) { 'qdrouterd' }
   newparam(:name, :namevar => true) do
     desc "The unique name for the listener"
+    newvalues(/^\S+$/)
   end
 
   newproperty(:addr) do
@@ -21,6 +22,10 @@ Puppet::Type.newtype(:qdr_listener) do
     desc "The role for connections established by the listener"
     defaultto :normal
     newvalues(:normal, :inter_router, :on_demand)
+  end
+
+  newproperty(:sasl_mechanisms) do
+    desc "List of accepted SASL authentication mechansisms"
   end
 
   newproperty(:auth_peer) do

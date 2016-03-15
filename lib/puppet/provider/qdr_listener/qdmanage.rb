@@ -29,6 +29,7 @@ Puppet::Type.type(:qdr_listener).provide(:qdmanage) do
     listener_properties[:addr]      = listener["addr"]
     listener_properties[:port]      = listener["port"]
     listener_properties[:role]      = listener["role"].to_s
+    listener_properties[:sasl_mechanisms] = listener["saslMechanisms"].to_s    
     listener_properties[:auth_peer] = listener["authenticatePeer"].to_s
     listener_properties[:require_encryption] = listener["requireEncryption"].to_s    
     listener_properties[:require_ssl] = listener["requireSsl"].to_s
@@ -45,6 +46,7 @@ Puppet::Type.type(:qdr_listener).provide(:qdmanage) do
                         :addr   => listener["addr"],
                         :port   => listener["port"],
                         :role   => listener["role"].to_s,
+                        :sasl_mechanisms => ["saslMechanisms"].to_s,
                         :auth_peer => listener["authenticatePeer"].to_s,
                         :require_encryption => listener["requireEncryption"].to_s,
                         :require_ssl => listener["requireSsl"].to_s,
@@ -89,6 +91,7 @@ Puppet::Type.type(:qdr_listener).provide(:qdmanage) do
                'addr='+resource[:addr],
                'port='+resource[:port],
                'role='+resource[:role].to_s,
+               'saslMechanisms='+resource[:sasl_mechanisms].to_s,
                'authenticatePeer='+resource[:auth_peer].to_s,
                'requireEncryption='+resource[:require_encryption].to_s,              
                'requireSsl='+resource[:require_ssl].to_s,

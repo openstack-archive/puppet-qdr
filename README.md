@@ -37,10 +37,11 @@ Routers serving as the messaging interconnect for a site.
 
 ### What qdr affects
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
+* repository files
+* packages
+* configuration files
+* service
+* configuration entities 
 
 ### Setup Requirements **OPTIONAL**
 
@@ -49,11 +50,7 @@ etc.), mention it here.
 
 ### Beginning with qdr
 
-The very basic steps needed for a user to get the module up and running.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+    include '::qdr'
 
 ## Usage
 
