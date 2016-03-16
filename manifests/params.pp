@@ -13,7 +13,7 @@ class qdr::params {
       $package_provider   = 'yum'
       $service_user       = 'qdrouterd'
       $service_group      = 'qdrouterd'
-      $service_home       = '/var/lib/qdrouterd/'
+      $service_home       = '/var/lib/qdrouterd'
       $service_version    = '0.5.0'
       $sasl_package_list  = [ 'cyrus-sasl-lib', 'cyrus-sasl-plain' ]
       $tools_package_name = 'qpid-dispatch-tools'
@@ -77,6 +77,6 @@ class qdr::params {
   # log parameters
   $log_module           = 'DEFAULT'
   $log_enable           = 'debug+'
-  $log_output           = '/var/log/qdrouterd.log'
+  $log_output           = "${service_home}/qdrouterd.log"
 
 }
