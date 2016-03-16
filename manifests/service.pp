@@ -7,8 +7,6 @@ class qdr::service inherits qdr {
   $service_ensure   = $qdr::service_ensure
   $service_name     = $qdr::service_name
   
-  notice("Inside of qdr service for $service_name")
-
   service { $service_name:
     ensure     => $service_ensure,
     enable     => $service_enable,

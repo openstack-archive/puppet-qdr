@@ -3,14 +3,26 @@
 # This class is called from qdr for qdrouterd service configuration
 #
 class qdr::config inherits qdr {
+
+  $service_config_path     = $qdr::service_config_path
+  $service_config_template = $qdr::service_config_template
   
-  notice("Inside of qdr config")
+  file { '/etc/qdrouterd' :
+    ensure => directory,
+    owner  => '0',
+    group  => '0',
+    mode   => '0644',
+  }
   
-  file { "/etc/qpid-dispatch/qdrouterd.conf" :
+  file { 'qdrouterd.conf' :
     ensure  => file,
+    path    => $service_config_path,
+    content => template($service_config_template),
     owner   => 0,
     group   => 0,
     mode    => '0644',
-    content => template('qdr/qdrouterd.conf.erb'),
-    }
+    notify  => Class['qdr::service'],
+  }
+
+  # TODO(ansmith) - is there need for service conf files, etc.
 }

@@ -65,9 +65,9 @@ class qdr(
   $log_enable                 = $qdr::params::log_enable,
   $log_module                 = $qdr::params::log_module,
   $log_output                 = $qdr::params::log_output,
-  $manage_service             = $qdr::params::manage_service,
   $package_ensure             = $qdr::params::package_ensure,
   $package_name               = $qdr::params::package_name,
+  $package_provider           = $qdr::params::package_provider,
   $router_hello_interval      = $qdr::params::router_hello_interval,
   $router_hello_max_age       = $qdr::params::router_hello_max_age,
   $router_id                  = $qdr::params::router_id,
@@ -76,25 +76,25 @@ class qdr(
   $router_ra_interval         = $qdr::params::router_ra_interval,
   $router_ra_interval_flux    = $qdr::params::router_ra_interval_flux,
   $router_mobile_addr_max_age = $qdr::params::router_mobile_addr_max_age,
-  $service_config_file        = $qdr::params::service_config_file,
-  $service_group              = $qdr::params::service_group,
+  $sasl_package_list          = $qdr::params::sasl_package_list,
+  $service_config_path        = $qdr::params::service_config_path,
+  $service_config_template    = $qdr::params::service_config_template,
   $service_enable             = $qdr::params::service_enable,
   $service_ensure             = $qdr::params::service_ensure,
-  $service_manage             = $qdr::params::service_manage,
-  $service_name               = $qdr::params::service_name,
-  $service_password           = $qdr::params::service_password,
+  $service_group              = $qdr::params::service_group,
+  $service_home               = $qdr::params::service_home,
   $service_user               = $qdr::params::service_user,
-  $tools_ensure               = $qdr::params::tools_ensure,
+  $service_name               = $qdr::params::service_name,
+  $service_version            = $qdr::params::service_version,
   $tools_package_name         = $qdr::params::tools_package_name,
-
+  
   
 ) inherits qdr::params {
 
   #validate parameters
 
-  #
-  notice("inside qdr init.pp")
-
+  #declare local variables and perform variable munging
+  
   class { '::qdr::install': } ->
   class { '::qdr::config': } ~>
   class { '::qdr::service': }
