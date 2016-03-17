@@ -77,6 +77,6 @@ class qdr::params {
   # log parameters
   $log_module           = 'DEFAULT'
   $log_enable           = 'debug+'
-  $log_output           = "${service_home}/qdrouterd.log"
+  $log_output           = 'var/log/qdrouterd.log'
 
 }

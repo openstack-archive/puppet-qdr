@@ -6,7 +6,7 @@ class qdr::config inherits qdr {
 
   $service_config_path     = $qdr::service_config_path
   $service_config_template = $qdr::service_config_template
-  $service_home            = $qdr::service_home
+  $log_output              = $qdr::log_output
   
   file { '/etc/qdrouterd' :
     ensure => directory,
@@ -25,11 +25,11 @@ class qdr::config inherits qdr {
     notify  => Class['qdr::service'],
   }
 
-  file { $service_home :
-    ensure => directory,
+  file { $log_output :
+    ensure => file,
     owner  => '0',
     group  => '0',
-    mode   => '0644',
+    mode   => '0666',
   }
   
   # TODO(ansmith) - is there need for service conf files, etc.
