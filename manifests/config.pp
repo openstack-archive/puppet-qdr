@@ -8,7 +8,7 @@ class qdr::config inherits qdr {
   $service_config_template = $qdr::service_config_template
   $log_output              = $qdr::log_output
   
-  file { '/etc/qdrouterd' :
+  file { '/etc/qpid-dispatch' :
     ensure => directory,
     owner  => '0',
     group  => '0',

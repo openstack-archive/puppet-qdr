@@ -26,6 +26,7 @@ Puppet::Type.newtype(:qdr_listener) do
 
   newproperty(:sasl_mechanisms) do
     desc "List of accepted SASL authentication mechansisms"
+    defaultto "ANONYMOUS,DIGEST-MD5,EXTERNAL,PLAIN"
   end
 
   newproperty(:auth_peer) do

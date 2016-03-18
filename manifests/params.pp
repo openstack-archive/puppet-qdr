@@ -6,7 +6,7 @@ class qdr::params {
 
   case $::osfamily {
     'RedHat': {
-      $package_ensure     = 'installed'
+      $package_ensure     = 'running'
 
       $package_name       = 'qpid-dispatch-router'
       $service_name       = 'qdrouterd'
@@ -19,7 +19,7 @@ class qdr::params {
       $tools_package_name = 'qpid-dispatch-tools'
     }
     'Debian': {
-      $package_ensure     = 'installed'
+      $package_ensure     = 'running'
       $package_name       = 'qdrouterd'
       $service_name       = 'qdrouterd'
       $package_provider   = 'apt'
@@ -77,6 +77,6 @@ class qdr::params {
   # log parameters
   $log_module           = 'DEFAULT'
   $log_enable           = 'debug+'
-  $log_output           = 'var/log/qdrouterd.log'
+  $log_output           = '/var/log/qdrouterd.log'
 
 }
