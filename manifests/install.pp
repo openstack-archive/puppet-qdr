@@ -17,7 +17,7 @@ class qdr::install inherits qdr {
       }
 
       package { $package_name :
-        ensure   => $package_ensure,
+        ensure   => 'installed',
         provider => $package_provider,
         notify   => Class['qdr::service'],
         require  => Package[$sasl_package_list],
@@ -54,7 +54,7 @@ class qdr::install inherits qdr {
       }
     }
     default: {
-      fail("The ${module_name} module is not supported on an ${::osfamily}."
+      fail("The ${module_name} module is not supported on an ${::osfamily}.")
     }
   }
 }
