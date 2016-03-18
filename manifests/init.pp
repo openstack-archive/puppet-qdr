@@ -66,7 +66,6 @@ class qdr(
   $log_module                 = $qdr::params::log_module,
   $log_output                 = $qdr::params::log_output,
   $package_ensure             = $qdr::params::package_ensure,
-  $package_name               = $qdr::params::package_name,
   $package_provider           = $qdr::params::package_provider,
   $router_hello_interval      = $qdr::params::router_hello_interval,
   $router_hello_max_age       = $qdr::params::router_hello_max_age,
@@ -83,10 +82,11 @@ class qdr(
   $service_ensure             = $qdr::params::service_ensure,
   $service_group              = $qdr::params::service_group,
   $service_home               = $qdr::params::service_home,
+  $service_package_name       = $qdr::params::service_package_name,
   $service_user               = $qdr::params::service_user,
   $service_name               = $qdr::params::service_name,
   $service_version            = $qdr::params::service_version,
-  $tools_package_name         = $qdr::params::tools_package_name,
+  $tools_package_list         = $qdr::params::tools_package_list,
   
   
 ) inherits qdr::params {
