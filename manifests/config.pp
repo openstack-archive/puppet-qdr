@@ -6,7 +6,15 @@ class qdr::config inherits qdr {
 
   $service_config_path     = $qdr::service_config_path
   $service_config_template = $qdr::service_config_template
+  $service_home            = $qdr::service_home
   $log_output              = $qdr::log_output
+  
+  file { $service_home :
+    ensure => directory,
+    owner  => '0',
+    group  => '0',
+    mode   => '0644',
+  }
   
   file { '/etc/qpid-dispatch' :
     ensure => directory,
