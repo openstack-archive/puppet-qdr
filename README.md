@@ -55,13 +55,13 @@ The default configuration currently installs Qpid-Dispatch-Router 0.5
 
 All configuration parameters can be managed via the main qdr class.
 
-'''puppet
+```puppet
 class { '::qdr' :
   service_enable            => true,
   container_workder_threads => 4,
   listener_port             => 15672,
 }
-'''
+```
 
 ## Class Reference
 
@@ -80,14 +80,14 @@ Resource configuration entity to establish outgoing connections from the router.
 
 Query all current connectors: '$puppet resource qdr_connector'
 
-'''puppet
+```puppet
 qdr_connector { 'anyConnector' :
   addr           => '10.10.10.10',
   port           => '1234',
   role           => 'inter_router',
   max_frame_size => '65536',
 }
-'''
+```
 
 ### qdr\_listener
 
@@ -95,14 +95,14 @@ Listens for incoming connection requests to the router
 
 Query all current listeners: '$puppet resource qdr_listener'
 
-'''puppet
+```puppet
 qdr_listener { 'anyListener' :
   addr            => '10.10.10.10',
   port            => '5678',
   role            => 'normal',
   sasl_mechanisms => 'DIGEST-MD5,EXTERNAL',
 }
-'''
+```
 
 ### qdr\_log
 
@@ -116,12 +116,12 @@ Users for internal sasl authentication
 
 Query all current internal users: '$puppet resource qdr_user'
 
-'''puppet
+```puppet
 qdr_user { 'anyUser' :
   file     => '/var/lib/qdrouterd/qdrouterd.sasldb',
   password => 'changeme',
 }
-'''
+```
 
 ## Resource Providers
 
