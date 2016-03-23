@@ -3,7 +3,7 @@
 #### Table of Contents
 
 1. [Overview](#overview)
-2. [Module Description - What the module does and why it is useful](#module-description)
+2. [Module Description - Manage the QPID Dispatch Router](#module-description)
 3. [Setup - The basics of getting started with qdr](#setup)
     * [What qdr affects](#what-qdr-affects)
     * [Setup requirements](#setup-requirements)
@@ -43,35 +43,107 @@ Routers serving as the messaging interconnect for a site.
 * service
 * configuration entities 
 
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
 ### Beginning with qdr
 
-    include '::qdr'
+'''puppet
+include '::qdr'
+'''
+
+The default configuration currently installs Qpid-Dispatch-Router 0.5  
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+All configuration parameters can be managed via the main qdr class.
 
-## Reference
+'''puppet
+class { '::qdr' :
+  service_enable            => true,
+  container_workder_threads => 4,
+  listener_port             => 15672,
+}
+'''
 
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
+## Class Reference
+
+* qdr: Provides the basic installation and configuration sequence
+* qdr::config: Provides qdrouterd configuration 
+* qdr::install: Performs package installations
+* qdr::params: Aggregates configuration data for router
+* qdr::service: Manages the qdrouterd service state
+
+
+## Resource Types
+
+### qdr\_connector
+
+Resource configuration entity to establish outgoing connections from the router.
+
+Query all current connectors: '$puppet resource qdr_connector'
+
+'''puppet
+qdr_connector { 'anyConnector' :
+  addr           => '10.10.10.10',
+  port           => '1234',
+  role           => 'inter_router',
+  max_frame_size => '65536',
+}
+'''
+
+### qdr\_listener
+
+Listens for incoming connection requests to the router
+
+Query all current listeners: '$puppet resource qdr_listener'
+
+'''puppet
+qdr_listener { 'anyListener' :
+  addr            => '10.10.10.10',
+  port            => '5678',
+  role            => 'normal',
+  sasl_mechanisms => 'DIGEST-MD5,EXTERNAL',
+}
+'''
+
+### qdr\_log
+
+Control log settings for a particular module on the running router
+
+Query all current log module settings: '$puppet resource qdr_log'
+
+### qdr\_user
+
+Users for internal sasl authentication 
+
+Query all current internal users: '$puppet resource qdr_user'
+
+'''puppet
+qdr_user { 'anyUser' :
+  file     => '/var/lib/qdrouterd/qdrouterd.sasldb',
+  password => 'changeme',
+}
+'''
+
+## Resource Providers
+
+### qdmanage 
+
+An AMQP management client tool for used with any standard AMQP managed endpoint.
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+This module has been tested on the following platforms:
+
+* CentOS 7
+* Ubuntu 15.10
+
+It is tested with the OSS version of Puppet 3.x and 4.x.
+
+### Apt module dependence
+
+If running Debian os family, puppetlabs-apt module is required
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
 
 ## Release Notes/Contributors/Etc **Optional**
 
