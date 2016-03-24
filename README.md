@@ -45,9 +45,9 @@ Routers serving as the messaging interconnect for a site.
 
 ### Beginning with qdr
 
-'''puppet
+```puppet
 include '::qdr'
-'''
+```
 
 The default configuration currently installs Qpid-Dispatch-Router 0.5  
 
