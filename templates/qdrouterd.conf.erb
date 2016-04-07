@@ -33,10 +33,19 @@ router {
     routerId: <%= @router_id %>
 }
 
+sslProfile {
+    name: <%= @container_name %>
+    certDb: <%= @listener_ssl_cert_db %>
+    certFile: <%= @listener_ssl_cert_file %>
+    keyFile: <%= @listener_ssl_key_file %>
+}
+
 listener {
     addr: <%= @listener_addr %>
     port: <%= @listener_port %>
+    sslProfile: <%= @container_name %>
     authenticatePeer: <%= @listener_auth_peer %>
+    saslMechanisms: <%= @listener_sasl_mech %>
 }
 
 fixedAddress {
