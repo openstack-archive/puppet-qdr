@@ -136,7 +136,6 @@ This module has been tested on the following platforms:
 * CentOS 7
 * Ubuntu 15.10
 
-It is tested with the OSS version of Puppet 3.x and 4.x.
 
 ### Apt module dependence
 
