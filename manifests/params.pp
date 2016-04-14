@@ -60,9 +60,9 @@ class qdr::params {
   # listener attributes
   $listener_addr            = '127.0.0.1'
   $listener_port            = '5672'
-  $listener_ssl_cert_db     = undef
-  $listener_ssl_cert_file   = undef
-  $listener_ssl_key_file    = undef
+  $listener_ssl_cert_db     = '/etc/pki/tls/certs/amqp_cacert.crt'
+  $listener_ssl_cert_file   = '/etc/pki/tls/certs/ssl_amqp.crt'
+  $listener_ssl_key_file    = '/etc/pki/tls/private/ssl_amqp.key'
   $listener_ssl_pw_file     = undef
   $listener_ssl_password    = undef
   $listener_sasl_mech       = 'ANONYMOUS'
