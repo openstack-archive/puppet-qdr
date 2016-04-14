@@ -65,7 +65,7 @@ class qdr::params {
   $listener_ssl_key_file    = undef
   $listener_ssl_pw_file     = undef
   $listener_ssl_password    = undef
-  $listener_sasl_mech       = 'ANONYMOUS,DIGEST-MD5,EXTERNAL,PLAIN'
+  $listener_sasl_mech       = 'ANONYMOUS'
   $listener_auth_peer       = 'no'
   $listener_require_encrypt = 'no'
   $listener_require_ssl     = 'no'
