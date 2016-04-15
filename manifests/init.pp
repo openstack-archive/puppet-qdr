@@ -91,7 +91,7 @@ class qdr(
 ) inherits qdr::params {
 
   validate_string($container_name)
-#  validate_re($container_worker_threads, '\d+')
+  validate_string($container_worker_threads) 
   validate_absolute_path($container_debug_dump)
   validate_absolute_path($container_sasl_path)
   validate_string($container_sasl_name)  
