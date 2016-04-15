@@ -74,7 +74,6 @@ class qdr(
   $router_mode                = $qdr::params::router_mode,
   $router_ra_interval         = $qdr::params::router_ra_interval,
   $router_ra_interval_flux    = $qdr::params::router_ra_interval_flux,
-  $router_mobile_addr_max_age = $qdr::params::router_mobile_addr_max_age,
   $sasl_package_list          = $qdr::params::sasl_package_list,
   $service_config_path        = $qdr::params::service_config_path,
   $service_config_template    = $qdr::params::service_config_template,
@@ -91,9 +90,17 @@ class qdr(
   
 ) inherits qdr::params {
 
-  #validate parameters
-
-  #declare local variables and perform variable munging
+  validate_string($container_name)
+#  validate_re($container_worker_threads, '\d+')
+  validate_absolute_path($container_debug_dump)
+  validate_absolute_path($container_sasl_path)
+  validate_string($container_sasl_name)  
+  validate_re($router_mode,'^(standalone$|interior$)')
+  validate_string($router_id)
+  validate_string($listener_addr)
+  validate_re($listener_port, '\d+')
+  validate_re($listener_auth_peer,'^(yes$|no$)')
+  validate_string($listener_sasl_mech)
   
   class { '::qdr::install': } ->
   class { '::qdr::config': } ~>
