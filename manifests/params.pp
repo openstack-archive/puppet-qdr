@@ -27,14 +27,7 @@ class qdr::params {
   $service_config_template = 'qdr/qdrouterd.conf.erb'
   $service_ensure          = running
   $service_enable          = true
-  
-  # container attributes
-  $container_name           = "Qpid.Dispatch.Router.${::hostname}"
-  $container_worker_threads = $::processorcount
-  $container_debug_dump     = '/var/log/'
-  $container_sasl_path      = '/etc/sasl2'
-  $container_sasl_name      = 'qdrouterd'
-    
+
   # router attributes
   $router_id                  = "Router.${::fqdn}"
   $router_mode                = 'standalone'
@@ -44,6 +37,10 @@ class qdr::params {
   $router_ra_interval_flux    = '4'
   $router_remote_ls_max_age   = '60'
   $router_mobile_addr_max_age = '60'
+  $router_worker_threads      = $::processorcount
+  $router_debug_dump          = '/var/log/'
+  $router_sasl_path           = '/etc/sasl2'
+  $router_sasl_name           = 'qdrouterd'
 
   # listener attributes
   $listener_addr            = '127.0.0.1'

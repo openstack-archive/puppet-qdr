@@ -20,17 +20,13 @@
 # See the qdrouterd.conf (5) manual page for information about this
 # file's format and options.
 
-container {
-    containerName: <%= @container_name %>
-    workerThreads: <%= @container_worker_threads %>
-    debugDump: <%= @container_debug_dump %>
-    saslConfigPath: <%= @container_sasl_path %>
-    saslConfigName: <%= @container_sasl_name %>
-}
-
 router {
     mode: <%= @router_mode %>
-    routerId: <%= @router_id %>
+    id: <%= @router_id %>
+    workerThreads: <%= @router_worker_threads %>
+    debugDump: <%= @router_debug_dump %>
+    saslConfigPath: <%= @router_sasl_path %>
+    saslConfigName: <%= @routerer_sasl_name %>    
 }
 
 # sslProfile {
@@ -48,51 +44,34 @@ listener {
     saslMechanisms: <%= @listener_sasl_mech %>
 }
 
-fixedAddress {
-    prefix: /closest/
-    fanout: single
-    bias: closest
+address {
+    prefix: closest
+    distribution: closest
 }
 
-fixedAddress {
-    prefix: /multicast/
-    fanout: multiple
+address {
+    prefix: multicast
+    distribution: multicast
 }
 
-fixedAddress {
-    prefix: /queue/
-    phase:  0
-    fanout: single
-    bias:   closest
+address {
+    prefix: queue
+    distribution: closest
 }
 
-fixedAddress {
-    prefix: /queue/
-    phase:  1
-    fanout: single
-    bias:   closest
+address {
+    prefix: unicast
+    distribution: closest
 }
 
-fixedAddress {
-    prefix: /unicast
-    fanout: single
-    bias: closest
+address {
+    prefix: exclusive
+    distribution: closest
 }
 
-fixedAddress {
-    prefix: /exclusive
-    fanout: single
-    bias: closest
-}
-
-fixedAddress {
-    prefix: /broadcast
-    fanout: multiple
-}
-
-fixedAddress {
-    prefix: /
-    fanout: multiple
+address {
+    prefix: broadcast
+    fanout: multicast
 }
 
 log {

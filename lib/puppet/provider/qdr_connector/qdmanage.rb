@@ -30,6 +30,7 @@ Puppet::Type.type(:qdr_connector).provide(:qdmanage) do
     connector_properties[:port]           = connector["port"]
     connector_properties[:role]           = connector["role"].to_s
     connector_properties[:allow_redirect]       = connector["allowRedirect"].to_s
+    connector_properties[:sasl_mechanisms]      = connector["saslMechanisms"].to_s    
     connector_properties[:max_frame_size]       = connector["maxFrameSize"].to_s
     connector_properties[:idle_timeout_seconds] = connector["idleTimeoutSeconds"].to_s
     connector_properties[:strip_annotations]    = connector["stripAnnotations"].to_s    
@@ -40,15 +41,16 @@ Puppet::Type.type(:qdr_connector).provide(:qdmanage) do
   def self.instances
     connectors = []
     get_list_of_connectors.each do |connector|
-      connectors << new( :name => connector["name"],
-                        :ensure            => :present,
-                        :addr              => connector["addr"],
-                        :port              => connector["port"],
-                        :role              => connector["role"].to_s,
-                        :allow_redirect    => connector["allowRedirect"].to_s,
-                        :max_frame_size    => connector["maxFrameSize"].to_s,
+      connectors << new(:name                  => connector["name"],
+                        :ensure                => :present,
+                        :addr                  => connector["addr"],
+                        :port                  => connector["port"],
+                        :role                  => connector["role"].to_s,
+                        :sasl_mechanisms       => connector["saslMechanisms"].to_s,
+                        :allow_redirect        => connector["allowRedirect"].to_s,
+                        :max_frame_size        => connector["maxFrameSize"].to_s,
                         :idle_timeout_seconds  => connector["idleTimeoutSeconds"].to_s,
-                        :strip_annotations => connector["stripAnnotations"].to_s)      
+                        :strip_annotations     => connector["stripAnnotations"].to_s)      
     end
     connectors                                  
   end
@@ -89,6 +91,7 @@ Puppet::Type.type(:qdr_connector).provide(:qdmanage) do
                'addr='+resource[:addr],
                'port='+resource[:port],
                'role='+resource[:role].to_s,
+               'saslMechanisms='+resource[:sasl_mechanisms].to_s,
                'allowRedirect='+resource[:allow_redirect].to_s,
                'maxFrameSize='+resource[:max_frame_size].to_s,
                'idleTimeoutSeconds='+resource[:idle_timeout_seconds].to_s,

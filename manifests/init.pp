@@ -43,11 +43,6 @@
 # Copyright 2016 Your name here, unless otherwise noted.
 #
 class qdr(
-  $container_debug_dump       = $qdr::params::container_debug_dump,
-  $container_name             = $qdr::params::container_name,
-  $container_worker_threads   = $qdr::params::container_worker_threads,
-  $container_sasl_name        = $qdr::params::container_sasl_name,
-  $container_sasl_path        = $qdr::params::container_sasl_path,
   $listener_addr              = $qdr::params::listener_addr,
   $listener_auth_peer         = $qdr::params::listener_auth_peer,
   $listener_idle_timeout      = $qdr::params::listener_idle_timeout,
@@ -74,6 +69,10 @@ class qdr(
   $router_mode                = $qdr::params::router_mode,
   $router_ra_interval         = $qdr::params::router_ra_interval,
   $router_ra_interval_flux    = $qdr::params::router_ra_interval_flux,
+  $router_debug_dump          = $qdr::params::router_debug_dump,
+  $router_worker_threads      = $qdr::params::router_worker_threads,
+  $router_sasl_name           = $qdr::params::router_sasl_name,
+  $router_sasl_path           = $qdr::params::router_sasl_path,
   $sasl_package_list          = $qdr::params::sasl_package_list,
   $service_config_path        = $qdr::params::service_config_path,
   $service_config_template    = $qdr::params::service_config_template,
@@ -90,11 +89,10 @@ class qdr(
   
 ) inherits qdr::params {
 
-  validate_string($container_name)
-  validate_string($container_worker_threads) 
-  validate_absolute_path($container_debug_dump)
-  validate_absolute_path($container_sasl_path)
-  validate_string($container_sasl_name)  
+  validate_string($router_worker_threads)
+  validate_absolute_path($router_debug_dump)
+  validate_absolute_path($router_sasl_path)
+  validate_string($router_sasl_name)
   validate_re($router_mode,'^(standalone$|interior$)')
   validate_string($router_id)
   validate_string($listener_addr)

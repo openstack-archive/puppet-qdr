@@ -8,6 +8,7 @@ Puppet::Type.newtype(:qdr_connector) do
 
   newparam(:name, :namevar => true) do
     desc "The unique name for the connector"
+    newvalues(/^\s*\S+\s*$/)
   end
 
   newproperty(:addr) do
@@ -16,6 +17,7 @@ Puppet::Type.newtype(:qdr_connector) do
 
   newproperty(:port) do
     desc "The outgoing connection host port number"
+    newvalues(/^\d+/)
   end
 
   newproperty(:role) do
@@ -24,7 +26,12 @@ Puppet::Type.newtype(:qdr_connector) do
     newvalues(:normal, :inter_router, :on_demand)
   end
 
-  newproperty(:allow_redirect) do
+  newproperty(:sasl_mechanisms) do
+    desc "List of accepted SASL authentication mechansisms"
+    defaultto "ANONYMOUS,DIGEST-MD5,EXTERNAL,PLAIN"
+  end
+  
+  newproperty(:allowRedirect) do
     defaultto :false
     newvalues(:true, :false)
 

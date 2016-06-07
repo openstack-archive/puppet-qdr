@@ -47,7 +47,7 @@ Puppet::Type.type(:qdr_listener).provide(:qdmanage) do
                         :port   => listener["port"],
                         :role   => listener["role"].to_s,
                         :sasl_mechanisms => listener["saslMechanisms"].to_s,
-                         :auth_peer => listener["authenticatePeer"].to_s,
+                        :auth_peer => listener["authenticatePeer"].to_s,
                         :require_encryption => listener["requireEncryption"].to_s,
                         :require_ssl => listener["requireSsl"].to_s,
                         :max_frame_size => listener["maxFrameSize"].to_s)
