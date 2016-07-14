@@ -49,7 +49,7 @@ Routers serving as the messaging interconnect for a site.
 include '::qdr'
 ```
 
-The default configuration currently installs Qpid-Dispatch-Router 0.5  
+The default configuration currently installs Qpid-Dispatch-Router 0.6  
 
 ## Usage
 
@@ -73,6 +73,19 @@ class { '::qdr' :
 
 
 ## Resource Types
+
+### qdr\_address
+
+Resource to manage address prefixes for distribution and phasing
+
+Query all current internal addresses: '$puppet resource qdr_address'
+
+```puppet
+qdr_address { 'anyAddress' :
+  prefix       => 'unicast',
+  distribution => 'closest',
+}
+```
 
 ### qdr\_connector
 

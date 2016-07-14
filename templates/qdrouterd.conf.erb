@@ -45,21 +45,6 @@ listener {
 }
 
 address {
-    prefix: closest
-    distribution: closest
-}
-
-address {
-    prefix: multicast
-    distribution: multicast
-}
-
-address {
-    prefix: queue
-    distribution: closest
-}
-
-address {
     prefix: unicast
     distribution: closest
 }
@@ -71,7 +56,7 @@ address {
 
 address {
     prefix: broadcast
-    fanout: multicast
+    distribution: multicast
 }
 
 log {

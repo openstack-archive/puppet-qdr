@@ -3,13 +3,13 @@
 # This class is called from qdr for qdrouterd service management
 class qdr::service inherits qdr {
 
-  $service_enable   = $qdr::service_enable
-  $service_ensure   = $qdr::service_ensure
-  $service_name     = $qdr::service_name
+  $enable_service   = $::qdr::enable_service
+  $ensure_service   = $::qdr::ensure_service
+  $service_name     = $::qdr::params::service_name
   
   service { $service_name:
-    ensure     => $service_ensure,
-    enable     => $service_enable,
+    ensure     => $ensure_service,
+    enable     => $enable_service,
     hasstatus  => true,
     hasrestart => true,
   }

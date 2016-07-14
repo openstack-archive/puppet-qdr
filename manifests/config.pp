@@ -4,10 +4,10 @@
 #
 class qdr::config inherits qdr {
 
-  $service_config_path     = $qdr::service_config_path
-  $service_config_template = $qdr::service_config_template
-  $service_home            = $qdr::service_home
-  $log_output              = $qdr::log_output
+  $service_config_path     = $::qdr::params::service_config_path
+  $service_config_template = $::qdr::params::service_config_template
+  $service_home            = $::qdr::params::service_home
+  $log_output              = $::qdr::log_output
   
   file { $service_home :
     ensure => directory,

@@ -3,11 +3,11 @@
 # This class is called from qdr for qdrouterd service installation
 class qdr::install inherits qdr {
 
-  $package_ensure       = $qdr::package_ensure
-  $service_package_name = $qdr::service_package_name
-  $package_provider     = $qdr::package_provider
-  $sasl_package_list    = $qdr::sasl_package_list
-  $tools_package_list   = $qdr::tools_package_list
+  $ensure_package       = $::qdr::ensure_package
+  $service_package_name = $::qdr::params::service_package_name
+  $package_provider     = $::qdr::params::package_provider
+  $sasl_package_list    = $::qdr::params::sasl_package_list
+  $tools_package_list   = $::qdr::params::tools_package_list
 
   if $::osfamily == 'Debian' {
       include apt
@@ -18,19 +18,19 @@ class qdr::install inherits qdr {
   }
   
   package { $sasl_package_list :
-    ensure   => $package_ensure,
+    ensure   => $ensure_package,
     provider => $package_provider,
   }
 
   package { $service_package_name :
-    ensure   => $package_ensure,
+    ensure   => $ensure_package,
     provider => $package_provider,
     notify   => Class['qdr::service'],
     require  => Package[$sasl_package_list],
   }
 
   package { $tools_package_list :
-    ensure   => $package_ensure,
+    ensure   => $ensure_package,
     provider => $package_provider,
     require  => Package[$service_package_name],
   }

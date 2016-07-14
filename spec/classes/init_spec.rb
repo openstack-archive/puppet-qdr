@@ -18,10 +18,8 @@ describe 'qdr' do
   
     it 'installs packages' do
       is_expected.to contain_package(platform_params[:qdr_package_name]).with({ :ensure => :installed })
-#      is_expected.to contain_package(platform_params[:sasl_package_list]).with({ :ensure => :installed })
       is_expected.to contain_package('cyrus-sasl-lib').with({ :ensure => :installed })
       is_expected.to contain_package('cyrus-sasl-plain').with({ :ensure => :installed }) 
-#    it { should contain_package('qpid-dispatch-tools').with({ :ensure => :installed }) }      
     end
 
     it do

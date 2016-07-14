@@ -1,92 +1,165 @@
-# Class: qdr
-# ===========================
+# == Class: qdr
 #
 # Full description of class qdr here.
 #
-# Parameters
-# ----------
+# === Parameters
 #
-# Document parameters here.
+# [*ensure_package*]
+#   (optional) The state of the qdr packages
+#   Defaults to 'installed'
 #
-# * `sample parameter`
-# Explanation of what this parameter affects and what it defaults to.
-# e.g. "Specify one or more upstream ntp servers as an array."
+# [*ensure_service*]
+#   (optional) The state of the qdr service
+#   Defaults to 'running'
 #
-# Variables
-# ----------
+# [*enable_service*]
+#   (optional) The administrative status of the qdr service
+#   Defaults to 'true'
 #
-# Here you should define a list of variables that this module would require.
+# [*listener_addr*]
+#   (optional) Service host name
+#   Defaults to '127.0.0.1'
 #
-# * `sample variable`
-#  Explanation of how this variable affects the function of this class and if
-#  it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#  External Node Classifier as a comma separated list of hostnames." (Note,
-#  global variables should be avoided in favor of class parameters as
-#  of Puppet 2.6.)
+# [*listner_auth_peer*]
+#   (optional) Require the peer's identity to be authenticated.
+#   Defaults to 'no'
 #
-# Examples
-# --------
+# [*listner_idle_timeout*]
+#   (optional) Idle timeout, in seconds, for connection through the listener
+#   Defaults to '16'
 #
-# @example
-#    class { 'qdr':
-#      servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#    }
+# [*listener_max_frame_size*]
+#   (optional) Maximum frame size used for a message delivery over the connection
+#   Defaults to '16384'
 #
-# Authors
-# -------
+# [*listener_port*]
+#   (optional) Service port number (AMQP)
+#   Defaults to '5672'
 #
-# Author Name <author@domain.com>
+# [*listener_require_encrypt*]
+#   (optional) Require the connection to the peer to be encrypted
+#   Defaults to  'no'
 #
-# Copyright
-# ---------
+# [*listener_require_ssl*]
+#   (optional) Require the use of SSL or TLS on the connection
+#   Defaults to 'no'
 #
-# Copyright 2016 Your name here, unless otherwise noted.
+# [*listener_sasl_mech*]
+#   (optional) List of accepted SASL auth mechanisms
+#   Defaults to 'ANONYMOUS'
+#
+# [*listener_ssl_cert_db*]
+#   (optional) Path to certificate db
+#   Defaults to undef
+#
+# [*listener_ssl_cert_file*]
+#   (optional) Path to certificat file
+#   Defaults to undef
+#
+# [*listener_ssl_key_file*]
+#   (optional) Path to private key file
+#   Defaults to undef
+#
+# [*listener_ssl_pw_file*]
+#   (optional) Path to password file for certificate key
+#   Defaults to undef
+#
+# [*listener_ssl_password*]
+#   (optional) Password to be supplied
+#   Defaults to undef
+#
+# [*listener_trusted_certs*]
+#   (optional) Path to file containing trusted certificates
+#   Defaults to 'UNSET'
+#
+# [*log_module*]
+#   (optional) The log module to configure
+#   Defaults to 'DEFAULT' 
+#
+# [*log_enable*]
+#   (optional) Log level for a module
+#   Defaults to 'debug+' 
+#
+# [*log_output*]
+#   (optional) Target destination for log message
+#   Defaults to '/var/log/qdrouterd.log' 
+#
+# [*router_debug_dump*]
+#   (optional) Path to file for debugging information
+#   Defaults to '/var/log'
+#
+# [*router_hello_interval*]
+#   (optional) Router HELLO message interval in seconds
+#   Defaults to '1'
+#
+# [*router_hello_max_age*]
+#   (optional) Neighbor router age timeout in seconds
+#   Defaults to '3'
+#
+# [*router_id*]
+#   (optional) Router unique identifer
+#   Defaults to 'Router.fqdn"
+#
+# [*router_mode*]
+#   (optional) Operational mode for Router (standalone or interconnected)
+#   Defaults to 'standalone'
+#
+# [*router_ra_interval*]
+#   (optional) Router advertisement interval
+#   Defaults to '30'
+#
+# [*router_ra_interval_flux*]
+#   (optional) Router advertisement interval during topology changes
+#   Defaults to '4'
+#
+# [*router_remote_ls_max_age*]
+#   (optional) Router advertisement aging interval
+#   Defaults to '60'
+#
+# [*router_sasl_name*]
+#   (optional) Name of SASL configuration
+#   Defaults to 'qdrouterd'
+#
+# [*router_sasl_path*]
+#   (optional) Path to the SASL configuration file
+#   Defaults to '/etc/sasl2'
+#
+# [*router_worker_threads*]
+#   (optional) Number of threads create to process message traffic
+#   Defaults to $::processorcount
 #
 class qdr(
-  $listener_addr              = $qdr::params::listener_addr,
-  $listener_auth_peer         = $qdr::params::listener_auth_peer,
-  $listener_idle_timeout      = $qdr::params::listener_idle_timeout,
-  $listener_max_frame_size    = $qdr::params::listener_max_frame_size,
-  $listener_port              = $qdr::params::listener_port,
-  $listener_require_encrypt   = $qdr::params::listener_require_encrypt,
-  $listener_require_ssl       = $qdr::params::listener_require_ssl,
-  $listener_sasl_mech         = $qdr::params::listener_sasl_mech,
-  $listener_ssl_cert_db       = $qdr::params::listener_ssl_cert_db,
-  $listener_ssl_cert_file     = $qdr::params::listener_ssl_cert_file,
-  $listener_ssl_key_file      = $qdr::params::listener_ssl_key_file,
-  $listener_ssl_password      = $qdr::params::listener_ssl_password,
-  $listener_ssl_pw_file       = $qdr::params::listener_ssl_pw_file,
-  $listener_trusted_certs     = $qdr::params::listener_trusted_certs,
-  $log_enable                 = $qdr::params::log_enable,
-  $log_module                 = $qdr::params::log_module,
-  $log_output                 = $qdr::params::log_output,
-  $package_ensure             = $qdr::params::package_ensure,
-  $package_provider           = $qdr::params::package_provider,
-  $router_hello_interval      = $qdr::params::router_hello_interval,
-  $router_hello_max_age       = $qdr::params::router_hello_max_age,
-  $router_id                  = $qdr::params::router_id,
-  $router_mobile_addr_max_age = $qdr::params::router_mobile_addr_max_age,
-  $router_mode                = $qdr::params::router_mode,
-  $router_ra_interval         = $qdr::params::router_ra_interval,
-  $router_ra_interval_flux    = $qdr::params::router_ra_interval_flux,
-  $router_debug_dump          = $qdr::params::router_debug_dump,
-  $router_worker_threads      = $qdr::params::router_worker_threads,
-  $router_sasl_name           = $qdr::params::router_sasl_name,
-  $router_sasl_path           = $qdr::params::router_sasl_path,
-  $sasl_package_list          = $qdr::params::sasl_package_list,
-  $service_config_path        = $qdr::params::service_config_path,
-  $service_config_template    = $qdr::params::service_config_template,
-  $service_enable             = $qdr::params::service_enable,
-  $service_ensure             = $qdr::params::service_ensure,
-  $service_group              = $qdr::params::service_group,
-  $service_home               = $qdr::params::service_home,
-  $service_package_name       = $qdr::params::service_package_name,
-  $service_user               = $qdr::params::service_user,
-  $service_name               = $qdr::params::service_name,
-  $service_version            = $qdr::params::service_version,
-  $tools_package_list         = $qdr::params::tools_package_list,
-  
-  
+  $ensure_package             = 'installed',
+  $ensure_service             = 'running',
+  $enable_service             = true,
+  $listener_addr              = '127.0.0.1',
+  $listener_auth_peer         = 'no',
+  $listener_idle_timout       = '16',
+  $listener_max_frame_size    = '16384',
+  $listener_port              = '5672',
+  $listener_require_encrypt   = 'no',
+  $listener_require_ssl       = 'no',
+  $listener_sasl_mech         = 'ANONYMOUS',
+  $listener_ssl_cert_db       = undef,
+  $listener_ssl_cert_file     = undef,
+  $listener_ssl_key_file      = undef,
+  $listener_ssl_pw_file       = undef,
+  $listener_ssl_password      = undef,
+  $listener_trusted_certs     = 'UNSET',
+  $log_enable                 = 'DEFAULT',
+  $log_module                 = 'debug+',
+  $log_output                 = '/var/log/qdrouterd.log',
+  $router_debug_dump          = '/var/log',
+  $router_hello_interval      = '1',
+  $router_hello_max_age       = '3',
+  $router_id                  = "Router.${::fqdn}",
+  $router_mode                = 'standalone',
+  $router_ra_interval         = '30',
+  $router_ra_interval_flux    = '4',
+  $router_remote_ls_max_age   = '60',
+  $router_sasl_name           = 'qdrouterd',
+  $router_sasl_path           = '/etc/sasl2',
+  $router_worker_threads      = $::processorcount ,
 ) inherits qdr::params {
 
   validate_string($router_worker_threads)
