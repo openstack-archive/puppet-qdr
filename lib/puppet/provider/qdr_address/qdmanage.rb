@@ -25,6 +25,7 @@ Puppet::Type.type(:qdr_address).provide(:qdmanage) do
  
     address_properties[:provider]     = :qdmanage
     address_properties[:ensure]       = :present
+    address_properties[:name]         = address["name"]
     address_properties[:prefix]       = address["prefix"]
     address_properties[:distribution] = address["distribution"]
     address_properties[:waypoint]     = address["waypoint"].to_s
@@ -38,6 +39,7 @@ Puppet::Type.type(:qdr_address).provide(:qdmanage) do
     addresses = []
     get_list_of_addresses.each do |address|
       addresses << new( :prefix => address["prefix"],
+                        :name => address["name"],
                         :ensure => :present,
                         :distribution => address["distribution"],
                         :waypoint => address["waypoint"].to_s,

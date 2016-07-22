@@ -5,11 +5,16 @@ Puppet::Type.newtype(:qdr_address) do
   
   # TODO(ansmith) - dynamic autorequire for qdrouterd service
   #  autorequire(:service) { 'qdrouterd' }
-  newparam(:prefix, :namevar => true) do
-    desc "The unique prefix for the address-space"
+  newparam(:name, :namevar => true) do
+    desc "The name of the address prefix"
     newvalues(/^\S+$/)
   end
 
+  newproperty(:prefix) do
+    desc "The unique prefix for the address-space"
+    newvalues(/^\S+$/)
+  end
+  
   newproperty(:distribution) do
     desc "The treatment of traffic associated with the address"
     defaultto :balanced
