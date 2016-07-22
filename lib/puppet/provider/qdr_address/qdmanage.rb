@@ -12,7 +12,7 @@ Puppet::Type.type(:qdr_address).provide(:qdmanage) do
     @property_flush = {}
   end
 
-  def self.get_list_of_listeners
+  def self.get_list_of_addresses
     begin
       @addresses=JSON.load(qdmanage('QUERY','--type=address'))
     rescue Puppet::ExecutionFailure => e
