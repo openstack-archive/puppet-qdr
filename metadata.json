@@ -1,14 +1,59 @@
 {
-  "name": "ajssmith-qdr",
+  "name": "openstack-qdr",
   "version": "0.1.0",
-  "author": "Andy Smith",
-  "summary": "This module manages qpid-dispatch-router service",
+  "author": "OpenStack Contributors",
+  "summary": "Puppet OpenStack Extras Module",
   "license": "Apache-2.0",
-  "source": "https://github.com/ajssmith/puppet-qdr",
-  "project_page": "https://github.com/ajssmith/puppet-qdr",
-  "issues_url": "https://github.com/ajssmith/puppet-qdr/issues",
+  "source": "git://github.com/openstack/puppet-qdr.git",
+  "project_page": "https://launchpad.net/puppet-qdr",
+  "issues_url": "https://bugs.launchpad.net/puppet-qdr",
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": "3.x"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Fedora",
+      "operatingsystemrelease": [
+        "20"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6.5",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.04",
+        "16.04"
+      ]
+    }
+  ],
+  "description": "Puppet module to add useful utilities for OpenStack deployments",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+    {
+      "name": "puppetlabs/apt",
+      "version_requirement": ">=1.8.0 <3.0.0"
+    },
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">=4.0.0 <5.0.0"
+    }
   ]
 }
-

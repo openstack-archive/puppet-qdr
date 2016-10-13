@@ -20,16 +20,17 @@
 #   (optional) Service host name
 #   Defaults to '127.0.0.1'
 #
-# [*listner_auth_peer*]
-#   (optional) Require the peer's identity to be authenticated.
+# [*listener_auth_peer*]
+#   (optional)
 #   Defaults to 'no'
 #
-# [*listner_idle_timeout*]
-#   (optional) Idle timeout, in seconds, for connection through the listener
+# [*listener_idle_timeout*]
+#   (optional)
 #   Defaults to '16'
 #
 # [*listener_max_frame_size*]
-#   (optional) Maximum frame size used for a message delivery over the connection
+#   (optional) Maximum frame size used for a message delivery over the
+#   connection
 #   Defaults to '16384'
 #
 # [*listener_port*]
@@ -134,7 +135,7 @@ class qdr(
   $enable_service             = true,
   $listener_addr              = '127.0.0.1',
   $listener_auth_peer         = 'no',
-  $listener_idle_timout       = '16',
+  $listener_idle_timeout      = '16',
   $listener_max_frame_size    = '16384',
   $listener_port              = '5672',
   $listener_require_encrypt   = 'no',

@@ -1,10 +1,10 @@
-require 'rspec-puppet/spec_helper'
-require 'rspec-puppet'
-
-fixture_path = File.expand_path(File.join(__FILE__, '..', 'fixtures'))
+require 'puppetlabs_spec_helper/module_spec_helper'
+require 'shared_examples'
+require 'puppet-openstack_spec_helper/facts'
 
 RSpec.configure do |c|
-  c.module_path = File.join(fixture_path, 'modules')
-  c.manifest_dir = File.join(fixture_path, 'manifests')
-  c.environmentpath = File.join(Dir.pwd, 'spec')
+  c.alias_it_should_behave_like_to :it_configures, 'configures'
+  c.alias_it_should_behave_like_to :it_raises, 'raises'
 end
+
+at_exit { RSpec::Puppet::Coverage.report! }

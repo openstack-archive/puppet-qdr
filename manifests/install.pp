@@ -10,7 +10,7 @@ class qdr::install inherits qdr {
   $tools_package_list   = $::qdr::params::tools_package_list
 
   if $::osfamily == 'Debian' {
-      include apt
+      include ::apt
 
       Class['apt::update'] -> Package<| provider == 'apt' |>
 
