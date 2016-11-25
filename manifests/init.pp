@@ -173,7 +173,7 @@ class qdr(
   validate_re($listener_port, '\d+')
   validate_re($listener_auth_peer,'^(yes$|no$)')
   validate_string($listener_sasl_mech)
-  
+
   class { '::qdr::install': } ->
   class { '::qdr::config': } ~>
   class { '::qdr::service': }

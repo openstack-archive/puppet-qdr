@@ -16,7 +16,7 @@ class qdr::install inherits qdr {
 
       apt::ppa { 'ppa:qpid/testing' : }
   }
-  
+
   package { $sasl_package_list :
     ensure   => $ensure_package,
     provider => $package_provider,
