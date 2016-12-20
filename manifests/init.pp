@@ -160,10 +160,9 @@ class qdr(
   $router_remote_ls_max_age   = '60',
   $router_sasl_name           = 'qdrouterd',
   $router_sasl_path           = '/etc/sasl2',
-  $router_worker_threads      = $::processorcount ,
+  $router_worker_threads      = $::os_workers,
 ) inherits qdr::params {
 
-  validate_string($router_worker_threads)
   validate_absolute_path($router_debug_dump)
   validate_absolute_path($router_sasl_path)
   validate_string($router_sasl_name)
@@ -174,8 +173,21 @@ class qdr(
   validate_re($listener_auth_peer,'^(yes$|no$)')
   validate_string($listener_sasl_mech)
 
-  class { '::qdr::install': } ->
-  class { '::qdr::config': } ~>
-  class { '::qdr::service': }
+# TODO (ansmith) - manage repo via openstack-extras
+#  if $::operatingsystem == 'Ubuntu' {
+#      include ::apt
+#
+#      Class['apt::update'] -> Package<| provider == 'apt' |>
+#
+#      apt::ppa { 'ppa:qpid/testing' : }
+#  }
+
+  include ::qdr::install
+  include ::qdr::config
+  include ::qdr::service
+
+  Class['::qdr::install'] ->
+    Class['::qdr::config'] ->
+      Class['::qdr::service']
 
 }

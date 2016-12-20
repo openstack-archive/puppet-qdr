@@ -29,17 +29,22 @@ router {
     saslConfigName: <%= @router_sasl_name %>
 }
 
-# sslProfile {
-#    name: <%= @container_name %>
-#    certDb: <%= @listener_ssl_cert_db %>
-#    certFile: <%= @listener_ssl_cert_file %>
-#    keyFile: <%= @listener_ssl_key_file %>
-#}
+<%- if @listener_require_ssl == 'yes' -%>
+sslProfile {
+   name: <%= @router_id %>
+   certDb: <%= @listener_ssl_cert_db %>
+   certFile: <%= @listener_ssl_cert_file %>
+   keyFile: <%= @listener_ssl_key_file %>
+}
+<%- end -%>
 
 listener {
-    addr: <%= @listener_addr %>
+    host: <%= @listener_addr %>
     port: <%= @listener_port %>
-#    sslProfile: <%= @container_name %>
+<%- if @listener_require_ssl == 'yes' -%>
+    requireSsl: <%= @listener_require_ssl %>
+    sslProfile: <%= @router_id %>
+<%- end -%>
     authenticatePeer: <%= @listener_auth_peer %>
     saslMechanisms: <%= @listener_sasl_mech %>
 }

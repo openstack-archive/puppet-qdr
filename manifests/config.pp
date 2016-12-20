@@ -5,9 +5,9 @@
 class qdr::config inherits qdr {
 
   $service_config_path     = $::qdr::params::service_config_path
-  $service_config_template = $::qdr::params::service_config_template
   $service_home            = $::qdr::params::service_home
   $log_output              = $::qdr::log_output
+  $service_config_template = 'qdr/qdrouterd.conf.erb'
 
   file { $service_home :
     ensure => directory,
@@ -17,6 +17,13 @@ class qdr::config inherits qdr {
   }
 
   file { '/etc/qpid-dispatch' :
+    ensure => directory,
+    owner  => '0',
+    group  => '0',
+    mode   => '0644',
+  }
+
+  file { '/etc/qpid-dispatch/ssl' :
     ensure => directory,
     owner  => '0',
     group  => '0',
@@ -40,5 +47,4 @@ class qdr::config inherits qdr {
     mode   => '0666',
   }
 
-  # TODO(ansmith) - is there need for service conf files, etc.
 }
