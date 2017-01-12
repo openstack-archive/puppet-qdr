@@ -111,7 +111,6 @@ describe 'qdr' do
         should contain_file('qdrouterd.conf').with_content(/certDb: \/etc\/ssl\/certs\/ca-bundle.crt/)
         should contain_file('qdrouterd.conf').with_content(/certFile: \/etc\/pki\/ca-trust\/source\/anchors\/puppet_qdr.pem/)
         should contain_file('qdrouterd.conf').with_content(/keyFile: \/etc\/qpid-dispatch\/ssl\/puppet_qdr.pem/)
-        should contain_file('qdrouterd.conf').with_content(/requireSsl: yes/)
       end
     end
 

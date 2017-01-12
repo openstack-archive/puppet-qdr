@@ -42,7 +42,6 @@ listener {
     host: <%= @listener_addr %>
     port: <%= @listener_port %>
 <%- if @listener_require_ssl == 'yes' -%>
-    requireSsl: <%= @listener_require_ssl %>
     sslProfile: <%= @router_id %>
 <%- end -%>
     authenticatePeer: <%= @listener_auth_peer %>
