@@ -19,6 +19,5 @@ node default {
 #  qdr_user { 'SaslUser' :
 #    ensure           => present,
 #    password         => 'testpw',
-#    file             => '/var/lib/qdrouterd/qdrouterd.sasldb',  
 #  }
 }

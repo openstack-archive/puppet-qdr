@@ -4,11 +4,8 @@ Puppet::Type.type(:qdr_user).provide(:sasl) do
   commands :saslpasswd2 => 'saslpasswd2'
   optional_commands :sasldblistusers2 => 'sasldblistusers2'
 
-  #sasldb should be a config param
-  
   def self.instances
     users = []
-    #TODO (ansmith) - why did first and last get discarded by dp? 
     userlist=sasldblistusers2('-f', '/var/lib/qdrouterd/qdrouterd.sasldb').split(/\n/).each do |line|
       if line =~ /^(\S+)@(\S+):.*$/
         users << new(:name   => $1,
@@ -22,7 +19,8 @@ Puppet::Type.type(:qdr_user).provide(:sasl) do
 
   def create
     # is there a way to pipe to commands?
-    if not system(%{echo "#{resource[:password]}" | saslpasswd2 -f #{resource[:file]} #{resource[:name]}})
+    if not system(%{echo "#{resource[:password]}" | saslpasswd2 -f '/var/lib/qdrouterd/qdrouterd.sasldb' #{resource[:name]}})
+
       raise Puppet::Error, "Failed to create user"
     end
   end
@@ -35,7 +33,7 @@ Puppet::Type.type(:qdr_user).provide(:sasl) do
 
   def exists?
     begin
-      users = sasldblistusers2('-f', '/var/lib/qdrouterd/qdrouterd.sasldb').split(/\n/).detect do |user|
+      users = sasldblistusers2('-f', "/var/lib/qdrouterd/qdrouterd.sasldb").split(/\n/).detect do |user|
         user.match(/^#{resource[:name]}@.*$/)
       end
     rescue

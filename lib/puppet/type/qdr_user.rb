@@ -8,11 +8,6 @@ Puppet::Type.newtype(:qdr_user) do
     newvalues(/^\S+$/)
   end
 
-  newparam(:file) do
-    desc "The location of the sasl password file"
-    newvalues(/^\S+$/)
-  end
-
   newparam(:password) do
     desc "The user password to be set on creation"
   end

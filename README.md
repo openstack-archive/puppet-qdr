@@ -138,7 +138,6 @@ Query all current internal users: '$puppet resource qdr_user'
 
 ```puppet
 qdr_user { 'anyUser' :
-  file     => '/var/lib/qdrouterd/qdrouterd.sasldb',
   password => 'changeme',
 }
 ```
