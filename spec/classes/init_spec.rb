@@ -69,6 +69,7 @@ describe 'qdr' do
         should contain_file('qdrouterd.conf').with_content(/authenticatePeer: no/)
         should contain_file('qdrouterd.conf').with_content(/saslMechanisms: ANONYMOUS/)
         should contain_file('qdrouterd.conf').without_content(/sslProfile {/)
+        should contain_file('qdrouterd.conf').without_content(/connector {/)
       end
 
     end
@@ -81,7 +82,10 @@ describe 'qdr' do
           :listener_addr         => '10.1.1.1',
           :listener_port         => '5671',
           :listener_auth_peer    => 'yes',
-          :listener_sasl_mech    => 'ANONYMOUS DIGEST-MD5 EXTERNAL PLAIN'
+          :listener_sasl_mech    => 'ANONYMOUS DIGEST-MD5 EXTERNAL PLAIN',
+          :connectors            => [{'role' => 'inter-router'}],
+          :extra_listeners       => [{'mode' => 'interior'}],
+          :extra_addresses       => [{'prefix' => 'exclusive'}]
         }
       end
 
@@ -91,6 +95,9 @@ describe 'qdr' do
         should contain_file('qdrouterd.conf').with_content(/port: 5671/)
         should contain_file('qdrouterd.conf').with_content(/authenticatePeer: yes/)
         should contain_file('qdrouterd.conf').with_content(/saslMechanisms: ANONYMOUS DIGEST-MD5 EXTERNAL PLAIN/)
+        should contain_file('qdrouterd.conf').with_content(/role: inter-router/)
+        should contain_file('qdrouterd.conf').with_content(/mode: interior/)
+        should contain_file('qdrouterd.conf').with_content(/prefix: exclusive/)
       end
 
     end

@@ -48,6 +48,22 @@ listener {
     saslMechanisms: <%= @listener_sasl_mech %>
 }
 
+<%- @extra_listeners.each do |listener| -%>
+listener {
+<%- listener.each do |k,v| -%>
+    <%= k %>: <%= v %>
+<%- end -%>
+}
+
+<%- end -%>
+<%- @connectors.each do |connector| -%>
+connector {
+<%- connector.each do |k,v| -%>
+    <%= k %>: <%= v %>
+<%- end -%>
+}
+
+<%- end -%>
 address {
     prefix: unicast
     distribution: closest
@@ -62,6 +78,15 @@ address {
     prefix: broadcast
     distribution: multicast
 }
+
+<%- @extra_addresses.each do |address| -%>
+address {
+<%- address.each do |k,v| -%>
+    <%= k %>: <%= v %>
+<%- end -%>
+}
+
+<%- end -%>
 
 log {
    module: <%= @log_module %>

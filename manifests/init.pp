@@ -4,6 +4,10 @@
 #
 # === Parameters
 #
+# [*connectors*]
+#   (optional) An array of hashes containing connector configuration
+#   Defaults to []
+#
 # [*ensure_package*]
 #   (optional) The state of the qdr packages
 #   Defaults to 'installed'
@@ -15,6 +19,10 @@
 # [*enable_service*]
 #   (optional) The administrative status of the qdr service
 #   Defaults to 'true'
+#
+# [*extra_listeners*]
+#  (optional) An array of hashes containing extra listener configuration
+#  Defaults to []
 #
 # [*listener_addr*]
 #   (optional) Service host name
@@ -73,6 +81,10 @@
 #   (optional) Path to file containing trusted certificates
 #   Defaults to 'UNSET'
 #
+# [*extra_addresses*]
+#  (optional) An array of hashes containing extra address configuration
+#  Defaults to []
+#
 # [*log_module*]
 #   (optional) The log module to configure
 #   Defaults to 'DEFAULT' 
@@ -130,9 +142,11 @@
 #   Defaults to $::processorcount
 #
 class qdr(
+  $connectors                 = [],
   $ensure_package             = 'installed',
   $ensure_service             = 'running',
   $enable_service             = true,
+  $extra_listeners            = [],
   $listener_addr              = '127.0.0.1',
   $listener_auth_peer         = 'no',
   $listener_idle_timeout      = '16',
@@ -147,6 +161,7 @@ class qdr(
   $listener_ssl_pw_file       = undef,
   $listener_ssl_password      = undef,
   $listener_trusted_certs     = 'UNSET',
+  $extra_addresses            = [],
   $log_enable                 = 'debug+',
   $log_module                 = 'DEFAULT',
   $log_output                 = '/var/log/qdrouterd.log',
