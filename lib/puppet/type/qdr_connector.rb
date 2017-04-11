@@ -3,8 +3,7 @@ Puppet::Type.newtype(:qdr_connector) do
 
   ensurable
 
-  # TODO(ansmith) - dynamic autorequired for qdrouterd service
-  # autorequire(:service) { "qdrouterd' }
+  autorequire(:service) { 'qdrouterd' }
 
   newparam(:name, :namevar => true) do
     desc "The unique name for the connector"

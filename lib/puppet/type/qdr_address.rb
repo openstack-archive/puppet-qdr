@@ -2,9 +2,9 @@ Puppet::Type.newtype(:qdr_address) do
   desc "Type for managing qdrouterd address prefixes for distribution and phasing"
 
   ensurable 
-  
-  # TODO(ansmith) - dynamic autorequire for qdrouterd service
-  #  autorequire(:service) { 'qdrouterd' }
+
+  autorequire(:service) { 'qdrouterd' }
+
   newparam(:name, :namevar => true) do
     desc "The name of the address prefix"
     newvalues(/^\S+$/)

@@ -3,6 +3,8 @@ Puppet::Type.newtype(:qdr_user) do
 
   ensurable
 
+  autorequire(:service) { 'qdrouterd' }
+
   newparam(:name, :namevar => true) do
     desc "The name of user"
     newvalues(/^\S+$/)
