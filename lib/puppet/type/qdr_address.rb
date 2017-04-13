@@ -1,7 +1,7 @@
 Puppet::Type.newtype(:qdr_address) do
   desc "Type for managing qdrouterd address prefixes for distribution and phasing"
 
-  ensurable 
+  ensurable
 
   autorequire(:service) { 'qdrouterd' }
 

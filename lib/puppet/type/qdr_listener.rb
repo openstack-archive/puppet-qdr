@@ -1,7 +1,7 @@
 Puppet::Type.newtype(:qdr_listener) do
   desc "Type for managing qdrouterd listener instances"
 
-  ensurable 
+  ensurable
 
   autorequire(:service) { 'qdrouterd' }
 
