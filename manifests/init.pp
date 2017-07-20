@@ -201,8 +201,8 @@ class qdr(
   include ::qdr::config
   include ::qdr::service
 
-  Class['::qdr::install'] ->
-    Class['::qdr::config'] ->
-      Class['::qdr::service']
+  Class['::qdr::install']
+    -> Class['::qdr::config']
+      -> Class['::qdr::service']
 
 }
