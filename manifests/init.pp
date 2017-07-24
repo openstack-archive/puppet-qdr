@@ -95,11 +95,11 @@
 #
 # [*log_output*]
 #   (optional) Target destination for log message
-#   Defaults to '/var/log/qdrouterd.log' 
+#   Defaults to '/var/log/qdrouterd/qdrouterd.log'
 #
 # [*router_debug_dump*]
 #   (optional) Path to file for debugging information
-#   Defaults to '/var/log'
+#   Defaults to '/var/log/qdrouterd'
 #
 # [*router_hello_interval*]
 #   (optional) Router HELLO message interval in seconds
@@ -164,8 +164,8 @@ class qdr(
   $extra_addresses            = [],
   $log_enable                 = 'debug+',
   $log_module                 = 'DEFAULT',
-  $log_output                 = '/var/log/qdrouterd.log',
-  $router_debug_dump          = '/var/log',
+  $log_output                 = '/var/log/qdrouterd/qdrouterd.log',
+  $router_debug_dump          = '/var/log/qdrouterd',
   $router_hello_interval      = '1',
   $router_hello_max_age       = '3',
   $router_id                  = "Router.${::fqdn}",
