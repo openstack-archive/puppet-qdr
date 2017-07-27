@@ -87,11 +87,11 @@
 #
 # [*log_module*]
 #   (optional) The log module to configure
-#   Defaults to 'DEFAULT' 
+#   Defaults to 'DEFAULT'
 #
 # [*log_enable*]
 #   (optional) Log level for a module
-#   Defaults to 'debug+' 
+#   Defaults to 'debug+'
 #
 # [*log_output*]
 #   (optional) Target destination for log message
