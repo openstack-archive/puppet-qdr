@@ -1,7 +1,15 @@
 Puppet::Type.newtype(:qdr_user) do
   desc "Type for managing qdr users such as with sasl provider, etc."
 
-  ensurable
+  ensurable do
+    defaultto(:present)
+    newvalue(:present) do
+      provider.create
+    end
+    newvalue(:absent) do
+      provider.destroy
+    end
+  end
 
   autorequire(:service) { 'qdrouterd' }
 

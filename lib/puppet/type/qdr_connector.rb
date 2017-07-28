@@ -1,7 +1,15 @@
 Puppet::Type.newtype(:qdr_connector) do
   desc "Type for managing qdrouterd connection instances"
 
-  ensurable
+  ensurable do
+    defaultto(:present)
+    newvalue(:present) do
+      provider.create
+    end
+    newvalue(:absent) do
+      provider.destroy
+    end
+  end
 
   autorequire(:service) { 'qdrouterd' }
 

@@ -1,7 +1,15 @@
 Puppet::Type.newtype(:qdr_log) do
   desc "Type for managing qdrouterd module log instances"
 
-  ensurable
+  ensurable do
+    defaultto(:present)
+    newvalue(:present) do
+      provider.create
+    end
+    newvalue(:absent) do
+      provider.destroy
+    end
+  end
 
   autorequire(:service) { 'qdrouterd' }
 

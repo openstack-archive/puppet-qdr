@@ -23,7 +23,7 @@ describe 'qdr' do
           :ensure => :directory,
           :owner  => '0',
           :group  => '0',
-          :mode   => '0644',
+          :mode   => '0755',
         })
       end
 
@@ -54,6 +54,15 @@ describe 'qdr' do
         })
       end
 
+      it do
+        should contain_file(platform_params[:router_debug_dump]).with({
+          :ensure => :directory,
+          :owner  => '0',
+          :group  => '0',
+          :mode   => '0766',
+        })
+      end
+      
       it do
         should contain_service(platform_params[:service_name]).with({
           :ensure => 'running',
@@ -139,14 +148,16 @@ describe 'qdr' do
           { :qdr_package_name  => 'qdrouterd',
             :service_name      => 'qdrouterd',
             :sasl_package_list => ['sasl2-bin'],
-            :service_home      => '/var/lib/qdrouterd'}
+            :service_home      => '/var/lib/qdrouterd',
+            :router_debug_dump => '/var/log/qdrouterd'}
         end
       when 'RedHat'
         let (:platform_params) do
           { :qdr_package_name  => 'qpid-dispatch-router',
             :service_name      => 'qdrouterd',
             :sasl_package_list => ['cyrus-sasl-lib','cyrus-sasl-plain'],
-            :service_home      => '/var/lib/qdrouterd'}
+            :service_home      => '/var/lib/qdrouterd',
+            :router_debug_dump => '/var/log/qdrouterd'}
         end
       end
 
