@@ -23,6 +23,7 @@ Puppet::Type.type(:qdr_user).provide(:sasl) do
 
       raise Puppet::Error, "Failed to create user"
     end
+    system("chmod '0644' '/var/lib/qdrouterd/qdrouterd.sasldb'")
   end
 
   def destroy
