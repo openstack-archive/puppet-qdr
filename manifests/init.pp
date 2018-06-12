@@ -114,7 +114,7 @@
 #   Defaults to 'Router.fqdn"
 #
 # [*router_mode*]
-#   (optional) Operational mode for Router (standalone or interconnected)
+#   (optional) Operational mode for Router (standalone, edge or interconnected)
 #   Defaults to 'standalone'
 #
 # [*router_ra_interval*]
@@ -181,7 +181,7 @@ class qdr(
   validate_absolute_path($router_debug_dump)
   validate_absolute_path($router_sasl_path)
   validate_string($router_sasl_name)
-  validate_re($router_mode,'^(standalone$|interior$)')
+  validate_re($router_mode,'^(standalone$|edge$|interior$)')
   validate_string($router_id)
   validate_string($listener_addr)
   validate_re($listener_port, '\d+')
