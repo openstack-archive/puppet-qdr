@@ -165,6 +165,8 @@ If running Debian os family, puppetlabs-apt module is required
 
 ## Release Notes/Contributors/Etc **Optional**
 
+  *  https://docs.openstack.org/releasenotes/puppet-qdr
+
 If you aren't using changelog, put your release notes here (though you should
 consider using changelog). You may also add any additional sections you feel are
 necessary or important to include here. Please use the `## ` header.
