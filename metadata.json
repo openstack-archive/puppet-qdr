@@ -21,13 +21,13 @@
         {
             "operatingsystem": "Debian",
             "operatingsystemrelease": [
-                "7"
+                "9"
             ]
         },
         {
             "operatingsystem": "Fedora",
             "operatingsystemrelease": [
-                "20"
+                "24"
             ]
         },
         {
