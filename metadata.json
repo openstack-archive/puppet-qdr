@@ -2,7 +2,7 @@
     "name": "openstack-qdr",
     "version": "2.1.0",
     "author": "OpenStack Contributors",
-    "summary": "Puppet OpenStack Extras Module",
+    "summary": "Puppet Qpid Dispatch Router Module",
     "license": "Apache-2.0",
     "source": "git://github.com/openstack/puppet-qdr.git",
     "project_page": "https://launchpad.net/puppet-qdr",
@@ -40,7 +40,6 @@
         {
             "operatingsystem": "Ubuntu",
             "operatingsystemrelease": [
-                "14.04",
                 "16.04"
             ]
         }
