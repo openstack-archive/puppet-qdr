@@ -168,7 +168,7 @@ If running Debian os family, puppetlabs-apt module is required
   *  https://docs.openstack.org/releasenotes/puppet-qdr
 
 Repository
--------------
+----------
 
 * https://git.openstack.org/cgit/openstack/puppet-qdr
 
