@@ -162,6 +162,10 @@ If running Debian os family, puppetlabs-apt module is required
 
 ## Development
 
+Developer documentation for the entire puppet-openstack project.
+
+* https://docs.openstack.org/puppet-openstack-guide/latest/
+
 
 ## Release Notes/Contributors/Etc **Optional**
 
