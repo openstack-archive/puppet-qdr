@@ -166,8 +166,12 @@ Developer documentation for the entire puppet-openstack project.
 
 * https://docs.openstack.org/puppet-openstack-guide/latest/
 
+## Contributors
 
-## Release Notes/Contributors/Etc **Optional**
+* https://github.com/openstack/puppet-qdr/graphs/contributors
+
+
+## Release Notes
 
   *  https://docs.openstack.org/releasenotes/puppet-qdr
 
