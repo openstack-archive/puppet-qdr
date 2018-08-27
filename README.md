@@ -19,6 +19,9 @@ Team and repository tags
 5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
+7. [Contributors - Those with commits](#contributors)
+8. [Release Notes - Release notes for the project](#release-notes)
+9. [Repository - The project source code repository](#repository)
 
 ## Overview
 
