@@ -55,6 +55,29 @@ listener {
 <%- end -%>
 }
 
+<%- if @connector_require_ssl -%>
+sslProfile_connectors {
+    certDb: <%= @connector_ssl_cert_db %>
+    certFile: <%= @connector_ssl_cert_file %>
+    keyFile: <%= @connector_ssl_key_file %>
+}
+<%- end -%>
+
+connector {
+    name: <%= @connector_name %>
+    addr: <%= @connector_addr %>
+    port: <%= @connector_port %>
+    role: <%= @connector_role %>
+<%- if @connector_require_ssl -%>
+    sslprofile: <%= @connector_ssl_name %>
+<%- end -%>
+    saslMechanisms: <%= @connector_sasl_mech %>
+<%- if @connector_sasl_mech == 'PLAIN' -%>
+    saslUsername: <%= @connector_username %>
+    saslPassword: <%= @connector_password %>
+<%- end -%>
+}
+
 <%- end -%>
 <%- @connectors.each do |connector| -%>
 connector {
@@ -79,9 +102,29 @@ address {
     distribution: multicast
 }
 
+address {
+    prefix: queue
+    waypoint: yes
+}
+
 <%- @extra_addresses.each do |address| -%>
 address {
 <%- address.each do |k,v| -%>
+    <%= k %>: <%= v %>
+<%- end -%>
+}
+
+<%- end -%>
+
+autoLink {
+    addr: queue.first
+    direction: in
+    connection: broker
+}
+
+<%- @autolinks_addresses.each do |autoLink| -%>
+autoLink {
+<%- autoLink.each do |k,v| -%>
     <%= k %>: <%= v %>
 <%- end -%>
 }
