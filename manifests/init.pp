@@ -8,6 +8,10 @@
 #   (optional) An array of hashes containing connector configuration
 #   Defaults to []
 #
+# [*ssl_profiles*]
+#   (optional) An array of hashes containing the ssl profiles
+#   Defaults to []
+#
 # [*ensure_package*]
 #   (optional) The state of the qdr packages
 #   Defaults to 'installed'
@@ -81,6 +85,10 @@
 #   (optional) Path to file containing trusted certificates
 #   Defaults to 'UNSET'
 #
+# [*autolink_addresses*]
+#   (optional) An array of hashes containing the autoLink addresses
+#   Defaults to []
+#
 # [*extra_addresses*]
 #  (optional) An array of hashes containing extra address configuration
 #  Defaults to []
@@ -143,6 +151,7 @@
 #
 class qdr(
   $connectors                 = [],
+  $ssl_profiles               = [],
   $ensure_package             = 'installed',
   $ensure_service             = 'running',
   $enable_service             = true,
@@ -161,6 +170,7 @@ class qdr(
   $listener_ssl_pw_file       = undef,
   $listener_ssl_password      = undef,
   $listener_trusted_certs     = 'UNSET',
+  $autolink_addresses         = [],
   $extra_addresses            = [],
   $log_enable                 = 'debug+',
   $log_module                 = 'DEFAULT',
