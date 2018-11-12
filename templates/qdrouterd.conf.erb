@@ -38,6 +38,15 @@ sslProfile {
 }
 <%- end -%>
 
+<%- @ssl_profiles.each do |profile| -%>
+sslProfile{
+<%- profile.each do |k,v| -%>
+    <%= k %>: <%= v %>
+<%- end -%>
+}
+
+<%- end -%>
+
 listener {
     host: <%= @listener_addr %>
     port: <%= @listener_port %>
@@ -56,6 +65,7 @@ listener {
 }
 
 <%- end -%>
+
 <%- @connectors.each do |connector| -%>
 connector {
 <%- connector.each do |k,v| -%>
@@ -64,6 +74,7 @@ connector {
 }
 
 <%- end -%>
+
 address {
     prefix: unicast
     distribution: closest
@@ -88,10 +99,18 @@ address {
 
 <%- end -%>
 
+<%- @autolink_addresses.each do |autoLink| -%>
+autoLink {
+<%- autoLink.each do |k,v| -%>
+    <%=k %>: <%= v %>
+<%- end -%>
+}
+
+<%- end -%>
+
 log {
    module: <%= @log_module %>
    enable: <%= @log_enable %>
    timestamp: true
    output: <%= @log_output %>
 }
-
