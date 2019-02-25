@@ -188,15 +188,16 @@ class qdr(
   $router_worker_threads      = $::os_workers,
 ) inherits qdr::params {
 
-  validate_absolute_path($router_debug_dump)
-  validate_absolute_path($router_sasl_path)
-  validate_string($router_sasl_name)
-  validate_re($router_mode,'^(standalone$|edge$|interior$)')
-  validate_string($router_id)
-  validate_string($listener_addr)
-  validate_re($listener_port, '\d+')
-  validate_re($listener_auth_peer,'^(yes$|no$)')
-  validate_string($listener_sasl_mech)
+  validate_legacy(Stdlib::Absolutepath, 'validate_absolute_path', $router_debug_dump)
+  validate_legacy(Stdlib::Absolutepath, 'validate_absolute_path', $router_sasl_path)
+  validate_legacy(String, 'validate_string', $router_sasl_name)
+  validate_legacy(Enum['standalone', 'edge', 'interior'], 'validate_re', $router_mode,
+    ['^(standalone$|edge$|interior$)'])
+  validate_legacy(String, 'validate_string', $router_id)
+  validate_legacy(String, 'validate_string', $listener_addr)
+  validate_legacy(Integer, 'validate_re', $listener_port, ['\d+'])
+  validate_legacy(Enum['yes', 'no'], 'validate_re', $listener_auth_peer, ['^(yes$|no$)'])
+  validate_legacy(String, 'validate_string', $listener_sasl_mech)
 
 # TODO (ansmith) - manage repo via openstack-extras
 #  if $::operatingsystem == 'Ubuntu' {
