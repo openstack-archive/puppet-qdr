@@ -62,7 +62,7 @@ describe 'qdr' do
           :mode   => '0766',
         })
       end
-      
+
       it do
         should contain_service(platform_params[:service_name]).with({
           :ensure => 'running',
