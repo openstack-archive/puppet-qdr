@@ -19,7 +19,7 @@ class qdr::params {
       $service_user         = 'qdrouterd'
       $service_group        = 'qdrouterd'
       $service_home         = '/var/lib/qdrouterd'
-      $service_version      = '1.3.0'
+      $service_version      = '1.5.0'
       $sasl_package_list    = 'sasl2-bin'
       $tools_package_list   = [ 'qdmanage' , 'qdstat' ]
     }
@@ -31,7 +31,7 @@ class qdr::params {
       $service_user         = 'qdrouterd'
       $service_group        = 'qdrouterd'
       $service_home         = '/var/lib/qdrouterd'
-      $service_version      = '1.3.0'
+      $service_version      = '1.5.0'
       $sasl_package_list    = [ 'cyrus-sasl-lib', 'cyrus-sasl-plain' ]
       $tools_package_list   = [ 'qpid-dispatch-tools' ]
     }
