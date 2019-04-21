@@ -181,7 +181,7 @@ Developer documentation for the entire puppet-openstack project.
 Repository
 ----------
 
-* https://git.openstack.org/cgit/openstack/puppet-qdr
+* https://opendev.org/openstack/puppet-qdr
 
 If you aren't using changelog, put your release notes here (though you should
 consider using changelog). You may also add any additional sections you feel are
