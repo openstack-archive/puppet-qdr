@@ -36,7 +36,8 @@ class qdr::params {
       $tools_package_list   = [ 'qpid-dispatch-tools' ]
     }
     default: {
-      fail("Unsupported osfamily: ${::osfamily} operatingsystem")
+      fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, \
+module ${module_name} only support osfamily RedHat and Debian")
     }
   }
 
