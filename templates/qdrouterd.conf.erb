@@ -39,7 +39,7 @@ sslProfile {
 <%- end -%>
 
 <%- @ssl_profiles.each do |profile| -%>
-sslProfile{
+sslProfile {
 <%- profile.each do |k,v| -%>
     <%= k %>: <%= v %>
 <%- end -%>
