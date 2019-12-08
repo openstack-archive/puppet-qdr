@@ -66,7 +66,7 @@ The default configuration currently installs Qpid-Dispatch-Router 0.6
 All configuration parameters can be managed via the main qdr class.
 
 ```puppet
-class { '::qdr' :
+class { 'qdr' :
   service_enable            => true,
   container_workder_threads => 4,
   listener_port             => 15672,

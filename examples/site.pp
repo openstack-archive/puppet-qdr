@@ -1,7 +1,7 @@
 node default {
 
   # Qpid Dispatch Router common class
-  class { '::qdr' :
+  class { 'qdr' :
     # Currently no mandatory parameters
   }
 

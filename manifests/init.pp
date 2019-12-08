@@ -201,16 +201,16 @@ class qdr(
 
 # TODO (ansmith) - manage repo via openstack-extras
 #  if $::operatingsystem == 'Ubuntu' {
-#      include ::apt
+#      include apt
 #
 #      Class['apt::update'] -> Package<| provider == 'apt' |>
 #
 #      apt::ppa { 'ppa:qpid/testing' : }
 #  }
 
-  include ::qdr::install
-  include ::qdr::config
-  include ::qdr::service
+  include qdr::install
+  include qdr::config
+  include qdr::service
 
   Class['::qdr::install']
     -> Class['::qdr::config']
