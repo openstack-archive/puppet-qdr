@@ -251,3 +251,4 @@ locale_dirs = ['locale/']
 openstackdocs_repo_name = 'openstack/puppet-qdr'
 openstackdocs_bug_project = 'puppet-qdr'
 openstackdocs_bug_tag = ''
+openstackdocs_auto_name = False
