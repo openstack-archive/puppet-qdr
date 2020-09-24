@@ -1,6 +1,6 @@
 {
     "name": "openstack-qdr",
-    "version": "6.3.0",
+    "version": "6.4.0",
     "author": "OpenStack Contributors",
     "summary": "Puppet Qpid Dispatch Router Module",
     "license": "Apache-2.0",
