@@ -4,7 +4,7 @@
     "author": "OpenStack Contributors",
     "summary": "Puppet Qpid Dispatch Router Module",
     "license": "Apache-2.0",
-    "source": "git://github.com/openstack/puppet-qdr.git",
+    "source": "https://opendev.org/openstack/puppet-qdr.git",
     "project_page": "https://launchpad.net/puppet-qdr",
     "issues_url": "https://bugs.launchpad.net/puppet-qdr",
     "requirements": [
