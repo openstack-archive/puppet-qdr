@@ -29,7 +29,7 @@ router {
     saslConfigName: <%= @router_sasl_name %>
 }
 
-<%- if @listener_require_ssl == 'yes' -%>
+<%- if @listener_require_ssl_bool -%>
 sslProfile {
    name: <%= @router_id %>
    certDb: <%= @listener_ssl_cert_db %>
@@ -50,10 +50,10 @@ sslProfile {
 listener {
     host: <%= @listener_addr %>
     port: <%= @listener_port %>
-<%- if @listener_require_ssl == 'yes' -%>
+<%- if @listener_require_ssl_bool -%>
     sslProfile: <%= @router_id %>
 <%- end -%>
-    authenticatePeer: <%= @listener_auth_peer %>
+    authenticatePeer: <%= @listener_auth_peer_bool %>
     saslMechanisms: <%= @listener_sasl_mech %>
 }
 

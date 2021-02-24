@@ -34,7 +34,7 @@
 #
 # [*listener_auth_peer*]
 #   (optional)
-#   Defaults to 'no'
+#   Defaults to false
 #
 # [*listener_idle_timeout*]
 #   (optional)
@@ -51,11 +51,11 @@
 #
 # [*listener_require_encrypt*]
 #   (optional) Require the connection to the peer to be encrypted
-#   Defaults to  'no'
+#   Defaults to false
 #
 # [*listener_require_ssl*]
 #   (optional) Require the use of SSL or TLS on the connection
-#   Defaults to 'no'
+#   Defaults to false
 #
 # [*listener_sasl_mech*]
 #   (optional) List of accepted SASL auth mechanisms
@@ -157,12 +157,12 @@ class qdr(
   $enable_service             = true,
   $extra_listeners            = [],
   $listener_addr              = '127.0.0.1',
-  $listener_auth_peer         = 'no',
+  $listener_auth_peer         = false,
   $listener_idle_timeout      = '16',
   $listener_max_frame_size    = '16384',
   $listener_port              = '5672',
-  $listener_require_encrypt   = 'no',
-  $listener_require_ssl       = 'no',
+  $listener_require_encrypt   = false,
+  $listener_require_ssl       = false,
   $listener_sasl_mech         = 'ANONYMOUS',
   $listener_ssl_cert_db       = undef,
   $listener_ssl_cert_file     = undef,
@@ -196,8 +196,11 @@ class qdr(
   validate_legacy(String, 'validate_string', $router_id)
   validate_legacy(String, 'validate_string', $listener_addr)
   validate_legacy(Integer, 'validate_re', $listener_port, ['\d+'])
-  validate_legacy(Enum['yes', 'no'], 'validate_re', $listener_auth_peer, ['^(yes$|no$)'])
   validate_legacy(String, 'validate_string', $listener_sasl_mech)
+
+  $listener_auth_peer_bool = qdr::fixTruthy($listener_auth_peer)
+  $listener_require_encrypt_bool = qdr::fixTruthy($listener_require_encrypt)
+  $listener_require_ssl_bool = qdr::fixTruthy($listener_require_ssl)
 
 # TODO (ansmith) - manage repo via openstack-extras
 #  if $::operatingsystem == 'Ubuntu' {
@@ -216,4 +219,18 @@ class qdr(
     -> Class['::qdr::config']
       -> Class['::qdr::service']
 
+}
+
+function qdr::fixTruthy($truthyvar) >> Boolean {
+  if $truthyvar.is_a(String) {
+    validate_legacy(Enum['yes', 'no'], 'validate_re', $truthyvar, ['^(yes$|no$)'])
+    if $truthyvar == 'yes' {
+      return true
+    } elsif $truthyvar == 'no' {
+      return false
+    }
+  } else {
+    validate_legacy(Boolean, 'validate_bool', $truthyvar)
+    return $truthyvar
+  }
 }
