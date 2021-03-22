@@ -75,7 +75,7 @@ describe 'qdr' do
         should contain_file('qdrouterd.conf').with_content(/workerThreads: 8/)
         should contain_file('qdrouterd.conf').with_content(/host: 127.0.0.1/)
         should contain_file('qdrouterd.conf').with_content(/port: 5672/)
-        should contain_file('qdrouterd.conf').with_content(/authenticatePeer: no/)
+        should contain_file('qdrouterd.conf').with_content(/authenticatePeer: false/)
         should contain_file('qdrouterd.conf').with_content(/saslMechanisms: ANONYMOUS/)
         should contain_file('qdrouterd.conf').without_content(/sslProfile {/)
         should contain_file('qdrouterd.conf').without_content(/connector {/)
@@ -90,7 +90,7 @@ describe 'qdr' do
           :router_worker_threads => '4',
           :listener_addr         => '10.1.1.1',
           :listener_port         => '5671',
-          :listener_auth_peer    => 'yes',
+          :listener_auth_peer    => true,
           :listener_sasl_mech    => 'ANONYMOUS DIGEST-MD5 EXTERNAL PLAIN',
           :connectors            => [{'role' => 'inter-router'}],
           :extra_listeners       => [{'mode' => 'interior'}],
@@ -102,7 +102,7 @@ describe 'qdr' do
         should contain_file('qdrouterd.conf').with_content(/workerThreads: 4/)
         should contain_file('qdrouterd.conf').with_content(/host: 10.1.1.1/)
         should contain_file('qdrouterd.conf').with_content(/port: 5671/)
-        should contain_file('qdrouterd.conf').with_content(/authenticatePeer: yes/)
+        should contain_file('qdrouterd.conf').with_content(/authenticatePeer: true/)
         should contain_file('qdrouterd.conf').with_content(/saslMechanisms: ANONYMOUS DIGEST-MD5 EXTERNAL PLAIN/)
         should contain_file('qdrouterd.conf').with_content(/role: inter-router/)
         should contain_file('qdrouterd.conf').with_content(/mode: interior/)
@@ -112,6 +112,25 @@ describe 'qdr' do
     end
 
     context 'with qdr ssl enabled' do
+
+      let :params do
+        {
+          :listener_require_ssl   => true,
+          :listener_ssl_cert_db   => '/etc/ssl/certs/ca-bundle.crt',
+          :listener_ssl_cert_file => '/etc/pki/ca-trust/source/anchors/puppet_qdr.pem',
+          :listener_ssl_key_file  => '/etc/qpid-dispatch/ssl/puppet_qdr.pem',
+        }
+      end
+
+      it do
+        should contain_file('qdrouterd.conf').with_content(/sslProfile {/)
+        should contain_file('qdrouterd.conf').with_content(/certDb: \/etc\/ssl\/certs\/ca-bundle.crt/)
+        should contain_file('qdrouterd.conf').with_content(/certFile: \/etc\/pki\/ca-trust\/source\/anchors\/puppet_qdr.pem/)
+        should contain_file('qdrouterd.conf').with_content(/keyFile: \/etc\/qpid-dispatch\/ssl\/puppet_qdr.pem/)
+      end
+    end
+
+    context 'with qdr ssl enabled using backwards compatible truthy string' do
 
       let :params do
         {
@@ -127,6 +146,21 @@ describe 'qdr' do
         should contain_file('qdrouterd.conf').with_content(/certDb: \/etc\/ssl\/certs\/ca-bundle.crt/)
         should contain_file('qdrouterd.conf').with_content(/certFile: \/etc\/pki\/ca-trust\/source\/anchors\/puppet_qdr.pem/)
         should contain_file('qdrouterd.conf').with_content(/keyFile: \/etc\/qpid-dispatch\/ssl\/puppet_qdr.pem/)
+      end
+    end
+
+    context 'with qdr ssl disabled using backwards compatible truthy string' do
+
+      let :params do
+        {
+          :listener_require_ssl   => 'no',
+          :listener_ssl_cert_file => 'SHOULDNOTSHOWUP',
+        }
+      end
+
+      it do
+
+        should contain_file('qdrouterd.conf').without_content(/SHOULDNOTSHOWUP/)
       end
     end
 
