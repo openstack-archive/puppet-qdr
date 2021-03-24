@@ -224,6 +224,7 @@ class qdr(
 function qdr::fixTruthy($truthyvar) >> Boolean {
   if $truthyvar.is_a(String) {
     validate_legacy(Enum['yes', 'no'], 'validate_re', $truthyvar, ['^(yes$|no$)'])
+    warning('Usage of yes/no has been deprecated. Use boolean instead')
     if $truthyvar == 'yes' {
       return true
     } elsif $truthyvar == 'no' {
