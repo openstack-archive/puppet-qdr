@@ -4,12 +4,6 @@
 #
 class qdr::params {
 
-  if ($::os['name'] == 'Fedora') or
-    ($::os['family'] == 'RedHat' and Integer.new($::os['release']['major']) > 7) {
-    $_package_provider = 'dnf'
-  } else {
-    $_package_provider = 'yum'
-  }
   case $::osfamily {
     'Debian': {
       $service_package_name = 'qdrouterd'
@@ -27,7 +21,11 @@ class qdr::params {
       $service_package_name = 'qpid-dispatch-router'
       $service_name         = 'qdrouterd'
       $service_config_path  = '/etc/qpid-dispatch/qdrouterd.conf'
-      $package_provider     = $_package_provider
+      if Integer.new($::os['release']['major']) > 7 {
+        $package_provider   = 'dnf'
+      } else {
+        $package_provider   = 'yum'
+      }
       $service_user         = 'qdrouterd'
       $service_group        = 'qdrouterd'
       $service_home         = '/var/lib/qdrouterd'
