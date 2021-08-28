@@ -195,8 +195,11 @@ class qdr(
     ['^(standalone$|edge$|interior$)'])
   validate_legacy(String, 'validate_string', $router_id)
   validate_legacy(String, 'validate_string', $listener_addr)
-  validate_legacy(Integer, 'validate_re', $listener_port, ['\d+'])
   validate_legacy(String, 'validate_string', $listener_sasl_mech)
+
+  if ! $listener_port =~ Stdlib::Compat::Integer {
+    validate_legacy(String, 'validate_re', $listener_port, ['\d+'])
+  }
 
   $listener_auth_peer_bool = qdr::fixTruthy($listener_auth_peer)
   $listener_require_encrypt_bool = qdr::fixTruthy($listener_require_encrypt)
