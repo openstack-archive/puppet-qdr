@@ -176,7 +176,7 @@ describe 'qdr' do
         }))
       end
 
-      case facts[:osfamily]
+      case facts[:os]['family']
       when 'Debian'
         let (:platform_params) do
           { :qdr_package_name  => 'qdrouterd',

@@ -178,14 +178,14 @@ class qdr(
   $router_debug_dump          = '/var/log/qdrouterd',
   $router_hello_interval      = '1',
   $router_hello_max_age       = '3',
-  $router_id                  = "Router.${::fqdn}",
+  $router_id                  = "Router.${facts['networking']['fqdn']}",
   $router_mode                = 'standalone',
   $router_ra_interval         = '30',
   $router_ra_interval_flux    = '4',
   $router_remote_ls_max_age   = '60',
   $router_sasl_name           = 'qdrouterd',
   $router_sasl_path           = '/etc/sasl2',
-  $router_worker_threads      = $::os_workers,
+  $router_worker_threads      = $facts['os_workers'],
 ) inherits qdr::params {
 
   validate_legacy(Stdlib::Absolutepath, 'validate_absolute_path', $router_debug_dump)
@@ -206,7 +206,7 @@ class qdr(
   $listener_require_ssl_bool = qdr::fixTruthy($listener_require_ssl)
 
 # TODO (ansmith) - manage repo via openstack-extras
-#  if $::operatingsystem == 'Ubuntu' {
+#  if $facts['os']['name'] == 'Ubuntu' {
 #      include apt
 #
 #      Class['apt::update'] -> Package<| provider == 'apt' |>

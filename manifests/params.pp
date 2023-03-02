@@ -4,7 +4,7 @@
 #
 class qdr::params {
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'Debian': {
       $service_package_name = 'qdrouterd'
       $service_name         = 'qdrouterd'
@@ -21,7 +21,7 @@ class qdr::params {
       $service_package_name = 'qpid-dispatch-router'
       $service_name         = 'qdrouterd'
       $service_config_path  = '/etc/qpid-dispatch/qdrouterd.conf'
-      if Integer.new($::os['release']['major']) > 7 {
+      if Integer.new($facts['os']['release']['major']) > 7 {
         $package_provider   = 'dnf'
       } else {
         $package_provider   = 'yum'
@@ -34,8 +34,7 @@ class qdr::params {
       $tools_package_list   = [ 'qpid-dispatch-tools' ]
     }
     default: {
-      fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, \
-module ${module_name} only support osfamily RedHat and Debian")
+      fail("Unsupported osfamily: ${facts['os']['family']}")
     }
   }
 
