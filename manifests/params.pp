@@ -21,11 +21,7 @@ class qdr::params {
       $service_package_name = 'qpid-dispatch-router'
       $service_name         = 'qdrouterd'
       $service_config_path  = '/etc/qpid-dispatch/qdrouterd.conf'
-      if Integer.new($facts['os']['release']['major']) > 7 {
-        $package_provider   = 'dnf'
-      } else {
-        $package_provider   = 'yum'
-      }
+      $package_provider     = 'dnf'
       $service_user         = 'qdrouterd'
       $service_group        = 'qdrouterd'
       $service_home         = '/var/lib/qdrouterd'
