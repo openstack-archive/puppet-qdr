@@ -201,9 +201,9 @@ class qdr(
     validate_legacy(String, 'validate_re', $listener_port, ['\d+'])
   }
 
-  $listener_auth_peer_bool = qdr::fixTruthy($listener_auth_peer)
-  $listener_require_encrypt_bool = qdr::fixTruthy($listener_require_encrypt)
-  $listener_require_ssl_bool = qdr::fixTruthy($listener_require_ssl)
+  validate_legacy(Boolean, 'validate_bool', $listener_auth_peer)
+  validate_legacy(Boolean, 'validate_bool', $listener_require_encrypt)
+  validate_legacy(Boolean, 'validate_bool', $listener_require_ssl)
 
 # TODO (ansmith) - manage repo via openstack-extras
 #  if $facts['os']['name'] == 'Ubuntu' {
@@ -222,19 +222,4 @@ class qdr(
     -> Class['qdr::config']
       -> Class['qdr::service']
 
-}
-
-function qdr::fixTruthy($truthyvar) >> Boolean {
-  if $truthyvar.is_a(String) {
-    validate_legacy(Enum['yes', 'no'], 'validate_re', $truthyvar, ['^(yes$|no$)'])
-    warning('Usage of yes/no has been deprecated. Use boolean instead')
-    if $truthyvar == 'yes' {
-      return true
-    } elsif $truthyvar == 'no' {
-      return false
-    }
-  } else {
-    validate_legacy(Boolean, 'validate_bool', $truthyvar)
-    return $truthyvar
-  }
 }

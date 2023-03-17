@@ -1,0 +1,9 @@
+---
+upgrade:
+  - |
+    The following parameters no longer accept string values(`yes` and `no`) and
+    requires boolean values.
+
+    - ``qdr::listener_auth_peer``
+    - ``qdr::listener_require_encrypt``
+    - ``qdr::listener_require_ssl``

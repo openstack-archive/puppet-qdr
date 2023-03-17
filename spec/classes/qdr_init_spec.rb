@@ -129,41 +129,6 @@ describe 'qdr' do
         should contain_file('qdrouterd.conf').with_content(/keyFile: \/etc\/qpid-dispatch\/ssl\/puppet_qdr.pem/)
       end
     end
-
-    context 'with qdr ssl enabled using backwards compatible truthy string' do
-
-      let :params do
-        {
-          :listener_require_ssl   => 'yes',
-          :listener_ssl_cert_db   => '/etc/ssl/certs/ca-bundle.crt',
-          :listener_ssl_cert_file => '/etc/pki/ca-trust/source/anchors/puppet_qdr.pem',
-          :listener_ssl_key_file  => '/etc/qpid-dispatch/ssl/puppet_qdr.pem',
-        }
-      end
-
-      it do
-        should contain_file('qdrouterd.conf').with_content(/sslProfile {/)
-        should contain_file('qdrouterd.conf').with_content(/certDb: \/etc\/ssl\/certs\/ca-bundle.crt/)
-        should contain_file('qdrouterd.conf').with_content(/certFile: \/etc\/pki\/ca-trust\/source\/anchors\/puppet_qdr.pem/)
-        should contain_file('qdrouterd.conf').with_content(/keyFile: \/etc\/qpid-dispatch\/ssl\/puppet_qdr.pem/)
-      end
-    end
-
-    context 'with qdr ssl disabled using backwards compatible truthy string' do
-
-      let :params do
-        {
-          :listener_require_ssl   => 'no',
-          :listener_ssl_cert_file => 'SHOULDNOTSHOWUP',
-        }
-      end
-
-      it do
-
-        should contain_file('qdrouterd.conf').without_content(/SHOULDNOTSHOWUP/)
-      end
-    end
-
   end
 
   on_supported_os({
