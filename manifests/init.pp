@@ -111,11 +111,11 @@
 #
 # [*router_hello_interval*]
 #   (optional) Router HELLO message interval in seconds
-#   Defaults to '1'
+#   Defaults to 1
 #
 # [*router_hello_max_age*]
 #   (optional) Neighbor router age timeout in seconds
-#   Defaults to '3'
+#   Defaults to 3
 #
 # [*router_id*]
 #   (optional) Router unique identifer
@@ -127,15 +127,15 @@
 #
 # [*router_ra_interval*]
 #   (optional) Router advertisement interval
-#   Defaults to '30'
+#   Defaults to 30
 #
 # [*router_ra_interval_flux*]
 #   (optional) Router advertisement interval during topology changes
-#   Defaults to '4'
+#   Defaults to 4
 #
 # [*router_remote_ls_max_age*]
 #   (optional) Router advertisement aging interval
-#   Defaults to '60'
+#   Defaults to 60
 #
 # [*router_sasl_name*]
 #   (optional) Name of SASL configuration
@@ -150,60 +150,43 @@
 #   Defaults to $::facts['processors']['count']
 #
 class qdr(
-  $connectors                 = [],
-  $ssl_profiles               = [],
-  $ensure_package             = 'installed',
-  $ensure_service             = 'running',
-  $enable_service             = true,
-  $extra_listeners            = [],
-  $listener_addr              = '127.0.0.1',
-  $listener_auth_peer         = false,
-  $listener_idle_timeout      = '16',
-  $listener_max_frame_size    = '16384',
-  $listener_port              = '5672',
-  $listener_require_encrypt   = false,
-  $listener_require_ssl       = false,
-  $listener_sasl_mech         = 'ANONYMOUS',
-  $listener_ssl_cert_db       = undef,
-  $listener_ssl_cert_file     = undef,
-  $listener_ssl_key_file      = undef,
-  $listener_ssl_pw_file       = undef,
-  $listener_ssl_password      = undef,
-  $listener_trusted_certs     = 'UNSET',
-  $autolink_addresses         = [],
-  $extra_addresses            = [],
-  $log_enable                 = 'debug+',
-  $log_module                 = 'DEFAULT',
-  $log_output                 = '/var/log/qdrouterd/qdrouterd.log',
-  $router_debug_dump          = '/var/log/qdrouterd',
-  $router_hello_interval      = '1',
-  $router_hello_max_age       = '3',
-  $router_id                  = "Router.${facts['networking']['fqdn']}",
-  $router_mode                = 'standalone',
-  $router_ra_interval         = '30',
-  $router_ra_interval_flux    = '4',
-  $router_remote_ls_max_age   = '60',
-  $router_sasl_name           = 'qdrouterd',
-  $router_sasl_path           = '/etc/sasl2',
-  $router_worker_threads      = $facts['processors']['count'],
+  Array[Hash[String[1], Scalar]] $connectors             = [],
+  Array[Hash[String[1], Scalar]] $ssl_profiles           = [],
+  String $ensure_package                                 = 'installed',
+  String $ensure_service                                 = 'running',
+  Boolean $enable_service                                = true,
+  Array[Hash[String[1], String[1]]] $extra_listeners     = [],
+  String $listener_addr                                  = '127.0.0.1',
+  Boolean $listener_auth_peer                            = false,
+  Integer $listener_idle_timeout                         = 16,
+  Integer $listener_max_frame_size                       = 16384,
+  Integer $listener_port                                 = 5672,
+  Boolean $listener_require_encrypt                      = false,
+  Boolean $listener_require_ssl                          = false,
+  String $listener_sasl_mech                             = 'ANONYMOUS',
+  Optional[Stdlib::Absolutepath] $listener_ssl_cert_db   = undef,
+  Optional[Stdlib::Absolutepath] $listener_ssl_cert_file = undef,
+  Optional[Stdlib::Absolutepath] $listener_ssl_key_file  = undef,
+  Optional[Stdlib::Absolutepath] $listener_ssl_pw_file   = undef,
+  Optional[String] $listener_ssl_password                = undef,
+  String $listener_trusted_certs                         = 'UNSET',
+  Array[Hash[String[1], Scalar]] $autolink_addresses     = [],
+  Array[Hash[String[1], Scalar]] $extra_addresses        = [],
+  String $log_enable                                     = 'debug+',
+  String $log_module                                     = 'DEFAULT',
+  Stdlib::Absolutepath $log_output                       = '/var/log/qdrouterd/qdrouterd.log',
+  Stdlib::Absolutepath $router_debug_dump                = '/var/log/qdrouterd',
+  Integer $router_hello_interval                         = 1,
+  Integer $router_hello_max_age                          = 3,
+  String $router_id                                      = "Router.${facts['networking']['fqdn']}",
+  Enum['standalone', 'edge', 'interior'] $router_mode    = 'standalone',
+  Integer $router_ra_interval                            = 30,
+  Integer $router_ra_interval_flux                       = 4,
+  Integer $router_remote_ls_max_age                      = 60,
+  String[1] $router_sasl_name                            = 'qdrouterd',
+  Stdlib::Absolutepath $router_sasl_path                 = '/etc/sasl2',
+  Integer $router_worker_threads                         = $facts['processors']['count'],
 ) inherits qdr::params {
-
-  validate_legacy(Stdlib::Absolutepath, 'validate_absolute_path', $router_debug_dump)
-  validate_legacy(Stdlib::Absolutepath, 'validate_absolute_path', $router_sasl_path)
-  validate_legacy(String, 'validate_string', $router_sasl_name)
-  validate_legacy(Enum['standalone', 'edge', 'interior'], 'validate_re', $router_mode,
-    ['^(standalone$|edge$|interior$)'])
-  validate_legacy(String, 'validate_string', $router_id)
-  validate_legacy(String, 'validate_string', $listener_addr)
-  validate_legacy(String, 'validate_string', $listener_sasl_mech)
-
-  if ! $listener_port =~ Integer {
-    validate_legacy(String, 'validate_re', $listener_port, ['\d+'])
-  }
-
-  validate_legacy(Boolean, 'validate_bool', $listener_auth_peer)
-  validate_legacy(Boolean, 'validate_bool', $listener_require_encrypt)
-  validate_legacy(Boolean, 'validate_bool', $listener_require_ssl)
 
 # TODO (ansmith) - manage repo via openstack-extras
 #  if $facts['os']['name'] == 'Ubuntu' {

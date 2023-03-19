@@ -6,7 +6,7 @@
 #
 # [*ensure_package*]
 #   (optional) The state of the qdr packages
-#   Defaults to  $::qdr::ensure_package
+#   Defaults to $::qdr::ensure_package
 #
 # [*service_package_name*]
 #   (optional) The service package name for osfamily
@@ -25,11 +25,11 @@
 #   Defaults to $::qdr::params::tools_package_list
 #
 class qdr::install (
-  $ensure_package       = $::qdr::ensure_package,
-  $service_package_name = $::qdr::params::service_package_name,
-  $package_provider     = $::qdr::params::package_provider,
-  $sasl_package_list    = $::qdr::params::sasl_package_list,
-  $tools_package_list   = $::qdr::params::tools_package_list,
+  String $ensure_package                                   = $::qdr::ensure_package,
+  String $service_package_name                             = $::qdr::params::service_package_name,
+  String $package_provider                                 = $::qdr::params::package_provider,
+  Variant[String[1], Array[String[1]]] $sasl_package_list  = $::qdr::params::sasl_package_list,
+  Variant[String[1], Array[String[1]]] $tools_package_list = $::qdr::params::tools_package_list,
 ) inherits qdr {
 
   package { $sasl_package_list :
