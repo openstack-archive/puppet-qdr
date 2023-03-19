@@ -73,6 +73,11 @@ describe 'qdr' do
       it do
         should contain_file('qdrouterd.conf').with_content(/mode: standalone/)
         should contain_file('qdrouterd.conf').with_content(/workerThreads: 8/)
+        should contain_file('qdrouterd.conf').with_content(/helloIntervalSeconds: 1/)
+        should contain_file('qdrouterd.conf').with_content(/helloMaxAgeSeconds: 3/)
+        should contain_file('qdrouterd.conf').with_content(/raIntervalSeconds: 30/)
+        should contain_file('qdrouterd.conf').with_content(/raIntervalFluxSeconds: 4/)
+        should contain_file('qdrouterd.conf').with_content(/remoteLsMaxAgeSeconds: 60/)
         should contain_file('qdrouterd.conf').with_content(/host: 127.0.0.1/)
         should contain_file('qdrouterd.conf').with_content(/port: 5672/)
         should contain_file('qdrouterd.conf').with_content(/authenticatePeer: false/)
@@ -87,19 +92,29 @@ describe 'qdr' do
 
       let :params do
         {
-          :router_worker_threads => '4',
-          :listener_addr         => '10.1.1.1',
-          :listener_port         => '5671',
-          :listener_auth_peer    => true,
-          :listener_sasl_mech    => 'ANONYMOUS DIGEST-MD5 EXTERNAL PLAIN',
-          :connectors            => [{'role' => 'inter-router'}],
-          :extra_listeners       => [{'mode' => 'interior'}],
-          :extra_addresses       => [{'prefix' => 'exclusive'}]
+          :router_worker_threads    => '4',
+          :router_hello_interval    => 2,
+          :router_hello_max_age     => 6,
+          :router_ra_interval       => 60,
+          :router_ra_interval_flux  => 8,
+          :router_remote_ls_max_age => 120,
+          :listener_addr            => '10.1.1.1',
+          :listener_port            => '5671',
+          :listener_auth_peer       => true,
+          :listener_sasl_mech       => 'ANONYMOUS DIGEST-MD5 EXTERNAL PLAIN',
+          :connectors               => [{'role' => 'inter-router'}],
+          :extra_listeners          => [{'mode' => 'interior'}],
+          :extra_addresses          => [{'prefix' => 'exclusive'}],
         }
       end
 
       it do
         should contain_file('qdrouterd.conf').with_content(/workerThreads: 4/)
+        should contain_file('qdrouterd.conf').with_content(/helloIntervalSeconds: 2/)
+        should contain_file('qdrouterd.conf').with_content(/helloMaxAgeSeconds: 6/)
+        should contain_file('qdrouterd.conf').with_content(/raIntervalSeconds: 60/)
+        should contain_file('qdrouterd.conf').with_content(/raIntervalFluxSeconds: 8/)
+        should contain_file('qdrouterd.conf').with_content(/remoteLsMaxAgeSeconds: 120/)
         should contain_file('qdrouterd.conf').with_content(/host: 10.1.1.1/)
         should contain_file('qdrouterd.conf').with_content(/port: 5671/)
         should contain_file('qdrouterd.conf').with_content(/authenticatePeer: true/)

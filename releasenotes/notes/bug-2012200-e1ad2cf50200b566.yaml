@@ -1,0 +1,10 @@
+---
+fixes:
+  - |
+    Fixed the following ``qdr`` claas parameters ignored.
+
+    - ``router_hello_interval``
+    - ``router_hello_max_age``
+    - ``router_ra_interval``
+    - ``router_ra_interval_flux``
+    - ``router_remote_ls_max_age``

@@ -27,6 +27,11 @@ router {
     debugDump: <%= @router_debug_dump %>
     saslConfigPath: <%= @router_sasl_path %>
     saslConfigName: <%= @router_sasl_name %>
+    helloIntervalSeconds: <%= @router_hello_interval %>
+    helloMaxAgeSeconds: <%= @router_hello_max_age %>
+    raIntervalSeconds: <%= @router_ra_interval %>
+    raIntervalFluxSeconds: <%= @router_ra_interval_flux %>
+    remoteLsMaxAgeSeconds: <%= @router_remote_ls_max_age %>
 }
 
 <%- if @listener_require_ssl -%>
