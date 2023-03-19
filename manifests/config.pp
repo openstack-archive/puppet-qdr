@@ -31,14 +31,17 @@ class qdr::config inherits qdr {
     mode   => '0644',
   }
 
+  $show_diff = ($::qdr::listener_ssl_password == undef)
+
   file { 'qdrouterd.conf' :
-    ensure  => file,
-    path    => $service_config_path,
-    content => template($service_config_template),
-    owner   => '0',
-    group   => '0',
-    mode    => '0644',
-    notify  => Class['qdr::service'],
+    ensure    => file,
+    path      => $service_config_path,
+    content   => template($service_config_template),
+    owner     => '0',
+    group     => '0',
+    mode      => '0644',
+    show_diff => $show_diff,
+    notify    => Class['qdr::service'],
   }
 
   file { $router_debug_dump :

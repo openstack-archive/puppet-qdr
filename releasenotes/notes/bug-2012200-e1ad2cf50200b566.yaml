@@ -8,3 +8,8 @@ fixes:
     - ``router_ra_interval``
     - ``router_ra_interval_flux``
     - ``router_remote_ls_max_age``
+    - ``listener_idle_timeout``
+    - ``listener_max_frame_size``
+    - ``listener_require_encrypt``
+    - ``listener_ssl_pw_file``
+    - ``listener_ssl_password``

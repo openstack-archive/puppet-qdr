@@ -36,10 +36,16 @@ router {
 
 <%- if @listener_require_ssl -%>
 sslProfile {
-   name: <%= @router_id %>
-   certDb: <%= @listener_ssl_cert_db %>
-   certFile: <%= @listener_ssl_cert_file %>
-   keyFile: <%= @listener_ssl_key_file %>
+    name: <%= @router_id %>
+    certDb: <%= @listener_ssl_cert_db %>
+    certFile: <%= @listener_ssl_cert_file %>
+    keyFile: <%= @listener_ssl_key_file %>
+<%- if @listener_ssl_pw_file -%>
+    passwordFile: <%= @listener_ssl_pw_file %>
+<%- end -%>
+<%- if @listener_ssl_password -%>
+    password: <%= @listener_ssl_password %>
+<%- end -%>
 }
 <%- end -%>
 
@@ -55,6 +61,9 @@ sslProfile {
 listener {
     host: <%= @listener_addr %>
     port: <%= @listener_port %>
+    idleTimeoutSeconds: <%= @listener_idle_timeout %>
+    maxFrameSize: <%= @listener_max_frame_size %>
+    requireEncryption: <%= @listener_require_encrypt %>
 <%- if @listener_require_ssl -%>
     sslProfile: <%= @router_id %>
 <%- end -%>
