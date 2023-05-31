@@ -188,8 +188,8 @@ class qdr(
   $router_worker_threads      = $facts['os_workers'],
 ) inherits qdr::params {
 
-  validate_legacy(Stdlib::Compat::Absolute_path, 'validate_absolute_path', $router_debug_dump)
-  validate_legacy(Stdlib::Compat::Absolute_path, 'validate_absolute_path', $router_sasl_path)
+  validate_legacy(Stdlib::Absolutepath, 'validate_absolute_path', $router_debug_dump)
+  validate_legacy(Stdlib::Absolutepath, 'validate_absolute_path', $router_sasl_path)
   validate_legacy(String, 'validate_string', $router_sasl_name)
   validate_legacy(Enum['standalone', 'edge', 'interior'], 'validate_re', $router_mode,
     ['^(standalone$|edge$|interior$)'])
