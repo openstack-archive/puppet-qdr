@@ -197,7 +197,7 @@ class qdr(
   validate_legacy(String, 'validate_string', $listener_addr)
   validate_legacy(String, 'validate_string', $listener_sasl_mech)
 
-  if ! $listener_port =~ Stdlib::Compat::Integer {
+  if ! $listener_port =~ Integer {
     validate_legacy(String, 'validate_re', $listener_port, ['\d+'])
   }
 
