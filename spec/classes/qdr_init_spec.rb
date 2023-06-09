@@ -81,7 +81,7 @@ describe 'qdr' do
 
       it do
         should contain_file('qdrouterd.conf').with_content(/mode: standalone/)
-        should contain_file('qdrouterd.conf').with_content(/workerThreads: 8/)
+        should contain_file('qdrouterd.conf').with_content(/workerThreads: 1/)
         should contain_file('qdrouterd.conf').with_content(/helloIntervalSeconds: 1/)
         should contain_file('qdrouterd.conf').with_content(/helloMaxAgeSeconds: 3/)
         should contain_file('qdrouterd.conf').with_content(/raIntervalSeconds: 30/)
@@ -104,7 +104,7 @@ describe 'qdr' do
 
       let :params do
         {
-          :router_worker_threads    => '4',
+          :router_worker_threads    => 4,
           :router_hello_interval    => 2,
           :router_hello_max_age     => 6,
           :router_ra_interval       => 60,
@@ -166,14 +166,12 @@ describe 'qdr' do
 
   on_supported_os({
     :supported_os => OSDefaults.get_supported_os
-  }).each do |os,facts|
-    context "on #{os}" do
-      let (:facts) do
-        facts.merge!(OSDefaults.get_facts({
-          :os_workers  => 8,
-        }))
-      end
+  }).each do |os,os_facts|
+    let :facts do
+      os_facts.merge({'processors' => {'count' => 1}})
+    end
 
+    context "on #{os}" do
       let (:platform_params) do
         case facts[:os]['family']
         when 'Debian'

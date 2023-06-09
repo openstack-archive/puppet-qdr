@@ -147,7 +147,7 @@
 #
 # [*router_worker_threads*]
 #   (optional) Number of threads create to process message traffic
-#   Defaults to $::processorcount
+#   Defaults to $::facts['processors']['count']
 #
 class qdr(
   $connectors                 = [],
@@ -185,7 +185,7 @@ class qdr(
   $router_remote_ls_max_age   = '60',
   $router_sasl_name           = 'qdrouterd',
   $router_sasl_path           = '/etc/sasl2',
-  $router_worker_threads      = $facts['os_workers'],
+  $router_worker_threads      = $facts['processors']['count'],
 ) inherits qdr::params {
 
   validate_legacy(Stdlib::Absolutepath, 'validate_absolute_path', $router_debug_dump)
