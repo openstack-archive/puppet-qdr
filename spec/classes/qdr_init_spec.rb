@@ -10,9 +10,18 @@ describe 'qdr' do
     it { is_expected.to contain_class('qdr::config') }
     it { is_expected.to contain_class('qdr::service') }
 
-    it 'installs packages' do
+    it 'installs the service package' do
       is_expected.to contain_package(platform_params[:qdr_package_name]).with({ :ensure => :installed })
+    end
+
+    it 'installs the sasl packages' do
       platform_params[:sasl_package_list].each do |p|
+        is_expected.to contain_package(p).with({ :ensure => :installed })
+      end
+    end
+
+    it 'installs the tools packages' do
+      platform_params[:tools_package_list].each do |p|
         is_expected.to contain_package(p).with({ :ensure => :installed })
       end
     end
@@ -165,29 +174,31 @@ describe 'qdr' do
         }))
       end
 
-      case facts[:os]['family']
-      when 'Debian'
-        let (:platform_params) do
-          { :qdr_package_name  => 'qdrouterd',
-            :service_name      => 'qdrouterd',
-            :sasl_package_list => ['sasl2-bin'],
-            :service_home      => '/var/lib/qdrouterd',
-            :router_debug_dump => '/var/log/qdrouterd'}
-        end
-      when 'RedHat'
-        let (:platform_params) do
-          { :qdr_package_name  => 'qpid-dispatch-router',
-            :service_name      => 'qdrouterd',
-            :sasl_package_list => ['cyrus-sasl-lib','cyrus-sasl-plain'],
-            :service_home      => '/var/lib/qdrouterd',
-            :router_debug_dump => '/var/log/qdrouterd'}
+      let (:platform_params) do
+        case facts[:os]['family']
+        when 'Debian'
+          {
+            :qdr_package_name   => 'qdrouterd',
+            :service_name       => 'qdrouterd',
+            :sasl_package_list  => ['sasl2-bin'],
+            :tools_package_list => ['qdmanage' , 'qdstat'],
+            :service_home       => '/var/lib/qdrouterd',
+            :router_debug_dump  => '/var/log/qdrouterd'
+          }
+        when 'RedHat'
+          {
+            :qdr_package_name   => 'qpid-dispatch-router',
+            :service_name       => 'qdrouterd',
+            :sasl_package_list  => ['cyrus-sasl-lib','cyrus-sasl-plain'],
+            :tools_package_list => ['qpid-dispatch-tools'],
+            :service_home       => '/var/lib/qdrouterd',
+            :router_debug_dump  => '/var/log/qdrouterd'
+          }
         end
       end
 
       it_behaves_like 'qdr'
 
     end
-
   end
-
 end
