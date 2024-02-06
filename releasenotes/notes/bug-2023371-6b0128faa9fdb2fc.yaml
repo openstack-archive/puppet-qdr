@@ -1,5 +1,0 @@
----
-fixes:
-  - |
-    Default value of the ``qdr::router_worker_threads`` parameter now matches
-    processor counts.
